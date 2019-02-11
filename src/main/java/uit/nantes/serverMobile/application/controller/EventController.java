@@ -1,4 +1,4 @@
-package uit.nantes.serverMobile.controller;
+package uit.nantes.serverMobile.application.controller;
 
 import java.util.List;
 
