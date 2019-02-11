@@ -12,14 +12,14 @@ import uit.nantes.serverMobile.domain.UserService;
 /**
  * @author Djurdjevic Sacha
  */
-@RestController("/user")
+@RestController()
 @CrossOrigin
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/user/{id}")
     public @ResponseBody
     User findUserById(@PathVariable String id) {
         return userService.findById(id);
