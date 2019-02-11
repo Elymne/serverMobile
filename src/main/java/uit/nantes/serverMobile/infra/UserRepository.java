@@ -10,17 +10,17 @@ public class UserRepository implements IUserRepository{
 
     @Override
     public User findByPseudo(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return findByPseudo(id);
     }
 
     @Override
     public User findByEmail(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return findByEmail(id);
     }
 
     @Override
     public <S extends User> S save(S s) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return save(s);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class UserRepository implements IUserRepository{
 
     @Override
     public Optional<User> findById(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return findById(id);
     }
 
     @Override
