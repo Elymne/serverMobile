@@ -1,4 +1,4 @@
-package uit.nantes.serverMobile;
+package uit.nantes.serverMobile.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
