@@ -28,7 +28,7 @@ public class User implements Serializable {
     private String id;
 
     @Column(unique = true, nullable = false)
-    private String speudo;
+    private String pseudo;
     @Column(unique = true, nullable = false)
     private String email;
     private String password;
@@ -54,10 +54,10 @@ public class User implements Serializable {
         super();
     }
 
-    public User(String id, String speudo, String email, String password) {
+    public User(String id, String pseudo, String email, String password) {
         super();
         this.id = id;
-        this.speudo = speudo;
+        this.pseudo = pseudo;
         this.email = email;
         this.password = password;
     }
@@ -90,16 +90,12 @@ public class User implements Serializable {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getPseudo() {
+        return pseudo;
     }
 
-    public String getSpeudo() {
-        return speudo;
-    }
-
-    public void setSpeudo(String speudo) {
-        this.speudo = speudo;
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
     }
 
     public String getEmail() {
@@ -120,7 +116,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", speudo=" + speudo + ", email=" + email + ", password=" + password + '}';
+        return "User{" + "id=" + id + ", speudo=" + pseudo + ", email=" + email + ", password=" + password + '}';
     }
 
 }
