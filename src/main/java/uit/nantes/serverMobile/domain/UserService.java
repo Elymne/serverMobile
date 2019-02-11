@@ -1,14 +1,12 @@
 package uit.nantes.serverMobile.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import uit.nantes.serverMobile.api.entities.User;
-import uit.nantes.serverMobile.infra.IUserRepository;
+import uit.nantes.serverMobile.infra.jpa.IUserRepository;
 
 /**
- * @author DJurdjevic Sacha
+ * @author Djurdjevic Sacha
  */
-@Service
 public class UserService {
     
     @Autowired
