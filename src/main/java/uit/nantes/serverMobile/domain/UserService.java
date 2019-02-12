@@ -25,23 +25,11 @@ public class UserService {
     }
 
     public User findByPseudo(String pseudo) {
-        User result = new User("", "", "");
-        try {
-            result = userRepository.findByPseudo(pseudo);
-        } catch (NoSuchElementException e) {
-            System.out.println(e);
-        }
-        return result;
+        return userRepository.findByPseudo(pseudo);
     }
 
     public User findByEmail(String email) {
-        User result = new User("", "", "");
-        try {
-            result = userRepository.findByEmail(email);
-        } catch (NoSuchElementException e) {
-            System.out.println(e);
-        }
-        return result;
+        return userRepository.findByEmail(email);
     }
 
     public boolean update(String id, User user) {
@@ -61,16 +49,16 @@ public class UserService {
     }
 
     public boolean insert(User user) {
-        boolean result = true;
-        String pseudo = findByPseudo(user.getPseudo()).getPseudo();
-        String email = findByEmail(user.getEmail()).getEmail();
+        String pseudo = this.findByPseudo(user.getId()).getId();
+        String email = this.findByEmail(user.getId()).getId();
+
+        boolean result = false;
 
         if (UserCheck.checkInsert(user, pseudo, email)) {
             userRepository.save(user);
-        } else {
-            result = false;
+            result = true;
         }
-        
+
         return result;
     }
 

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import uit.nantes.serverMobile.api.entities.User;
-import uit.nantes.serverMobile.application.controller.util.ToJson;
+import uit.nantes.serverMobile.application.controller.util.JsonResponse;
 import uit.nantes.serverMobile.domain.UserService;
 
 /**
@@ -29,33 +29,36 @@ public class UserController {
     @GetMapping(path = "/get/{id}")
     public @ResponseBody
     String getUserById(@PathVariable String id) throws JSONException {
-        return ToJson.userToJSON(userService.findById(id)).toString();
+        return JsonResponse.getJsonResponse(userService.findById(id)).toString();
     }
 
     @GetMapping(path = "/get/email/{id}")
     public @ResponseBody
     String getUserByEmail(@PathVariable String id) throws JSONException {
-        return ToJson.userToJSON(userService.findByEmail(id)).toString();
+        return JsonResponse.getJsonResponseBis(userService.findByEmail(id)).toString();
     }
 
     @GetMapping(path = "/get/pseudo/{id}")
     public @ResponseBody
     String getUserByPseudo(@PathVariable String id) throws JSONException {
-        return ToJson.userToJSON(userService.findByPseudo(id)).toString();
+        return JsonResponse.getJsonResponseBis(userService.findByPseudo(id)).toString();
     }
 
     @PutMapping(path = "/update/{id}")
     public @ResponseBody
-    void updatePasswordById(@PathVariable String id, @RequestBody User user) {
+    String updatePasswordById(@PathVariable String id, @RequestBody User user) throws JSONException {
+        Boolean result = userService.update(id, user);
         
+        return JsonResponse.updateJsonResponse(result).toString();
     }
 
     @PostMapping(path = "/add")
     public @ResponseBody
-    String addUser(@RequestBody User user) {
+    String addUser(@RequestBody User user) throws JSONException {
         User newuser = new User(user.getPseudo(), user.getEmail(), user.getPassword());
-        userService.insert(newuser);
-        return "mdr";
+        Boolean result = userService.insert(user);
+        
+        return newuser.toString();
     }
 
 }
