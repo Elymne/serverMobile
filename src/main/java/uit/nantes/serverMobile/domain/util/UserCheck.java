@@ -23,8 +23,8 @@ public class UserCheck {
         boolean result = true;
         if (user.getEmail() == email 
                 || user.getPseudo() == pseudo
-                || user.getEmail().isEmpty()
-                || user.getEmail().isEmpty()
+                || user.getEmail() == null
+                || user.getEmail() == null
                 || user.getPassword().length() < 5) {
             result = false;
         }

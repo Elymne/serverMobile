@@ -25,11 +25,25 @@ public class UserService {
     }
 
     public User findByPseudo(String pseudo) {
-        return userRepository.findByPseudo(pseudo);
+        User result = null;
+        for (User user : userRepository.findAll()) {
+            if (user.getPseudo().equals(pseudo)) {
+                result = user;
+                break;
+            }
+        }
+        return result;
     }
 
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+        User result = null;
+        for (User user : userRepository.findAll()) {
+            if (user.getEmail().equals(email)) {
+                result = user;
+                break;
+            }
+        }
+        return result;
     }
 
     public boolean update(String id, User user) {
@@ -49,8 +63,14 @@ public class UserService {
     }
 
     public boolean insert(User user) {
-        String pseudo = this.findByPseudo(user.getId()).getId();
-        String email = this.findByEmail(user.getId()).getId();
+        String pseudo = null;
+        String email = null;
+        if(this.findByPseudo(user.getPseudo()).equals(null)){
+            pseudo = user.getPseudo();
+        }
+        if(this.findByEmail(user.getEmail()).equals(null)){
+            email = user.getEmail();
+        }
 
         boolean result = false;
 
