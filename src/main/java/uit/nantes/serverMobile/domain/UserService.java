@@ -1,54 +1,92 @@
 package uit.nantes.serverMobile.domain;
 
+import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import uit.nantes.serverMobile.api.entities.User;
+import uit.nantes.serverMobile.domain.util.UserCheck;
 import uit.nantes.serverMobile.infra.jpa.IUserRepository;
 
 /**
  * @author Djurdjevic Sacha
  */
 public class UserService {
-    
+
     @Autowired
     IUserRepository userRepository;
-    
-    public User findById(String id){
-        return userRepository.findById(id).get();
+
+    public User findById(String id) {
+        User result = new User("", "", "");
+        try {
+            result = userRepository.findById(id).get();
+        } catch (NoSuchElementException e) {
+            System.out.println(e);
+        }
+        return result;
     }
-    
-    public User findByPseudo(String pseudo){
-        return userRepository.findByPseudo(pseudo);
+
+    public User findByPseudo(String pseudo) {
+        User result = new User("", "", "");
+        try {
+            result = userRepository.findByPseudo(pseudo);
+        } catch (NoSuchElementException e) {
+            System.out.println(e);
+        }
+        return result;
     }
-    
-    public User findByEmail(String email){
-        return userRepository.findByEmail(email);
+
+    public User findByEmail(String email) {
+        User result = new User("", "", "");
+        try {
+            result = userRepository.findByEmail(email);
+        } catch (NoSuchElementException e) {
+            System.out.println(e);
+        }
+        return result;
     }
-    
-    public void updatePseudo(String id, String pseudo){
+
+    public boolean update(String id, User user) {
+        boolean result = true;
         User userUpdate = userRepository.findById(id).get();
-        userUpdate.setPseudo(pseudo);
-        userRepository.save(userUpdate);
+
+        if (UserCheck.checkUpdate(user, userUpdate)) {
+            userUpdate.setEmail(user.getEmail());
+            userUpdate.setPassword(user.getPassword());
+            userUpdate.setPseudo(user.getPseudo());
+            userRepository.save(userUpdate);
+        } else {
+            result = false;
+        }
+
+        return result;
     }
-    
-    public void updatePassword(String id, String password){
-        User userUpdate = userRepository.findById(id).get();
-        userUpdate.setPassword(password);
-        userRepository.save(userUpdate);
+
+    public boolean insert(User user) {
+        boolean result = true;
+        String pseudo = findByPseudo(user.getPseudo()).getPseudo();
+        String email = findByEmail(user.getEmail()).getEmail();
+
+        if (UserCheck.checkInsert(user, pseudo, email)) {
+            userRepository.save(user);
+        } else {
+            result = false;
+        }
+        
+        return result;
     }
-    
-    public void updateEmail(String id, String email){
-        User userUpdate = userRepository.findById(id).get();
-        userUpdate.setEmail(email);
-        userRepository.save(userUpdate);
+
+    public boolean deleteById(String id) {
+        User userDelete = null;
+        boolean result = false;
+
+        try {
+            userDelete = userRepository.findById(id).get();
+            userRepository.delete(userDelete);
+            result = true;
+        } catch (NoSuchElementException e) {
+            System.out.println(e);
+        }
+
+        return result;
     }
-    
-    public void insert(User user){
-        userRepository.save(user);
-    }
-    
-    public void deleteById(String id){
-        User userDelete = userRepository.findById(id).get();
-        userRepository.delete(userDelete);
-    }
-    
+
 }

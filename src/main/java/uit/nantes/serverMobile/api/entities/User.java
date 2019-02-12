@@ -2,12 +2,11 @@ package uit.nantes.serverMobile.api.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -24,7 +23,6 @@ public class User implements Serializable {
 
     @Id
     @Column(name = "idUser", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String id;
 
     @Column(unique = true, nullable = false)
@@ -54,9 +52,9 @@ public class User implements Serializable {
         super();
     }
 
-    public User(String id, String pseudo, String email, String password) {
+    public User(String pseudo, String email, String password) {
         super();
-        this.id = id;
+        this.id = UUID.randomUUID().toString();
         this.pseudo = pseudo;
         this.email = email;
         this.password = password;

@@ -46,4 +46,8 @@ public class EventService {
 		eventRepository.findAll().forEach(events::add);
 		return events; 
 	}
+        
+        public long getCount(){
+            return eventRepository.count();
+        }
 }
