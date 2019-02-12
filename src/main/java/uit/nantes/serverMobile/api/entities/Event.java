@@ -3,6 +3,7 @@ package uit.nantes.serverMobile.api.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -52,8 +53,8 @@ public class Event implements Serializable {
         super();
     }
 
-    public Event(String id, String title, LocalDate date, User user) {
-        this.id = id;
+    public Event(String title, LocalDate date, User user) {
+        this.id = UUID.randomUUID().toString();
         this.title = title;
         this.date = date;
         this.user = user;
