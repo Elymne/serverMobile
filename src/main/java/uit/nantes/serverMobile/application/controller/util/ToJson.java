@@ -9,15 +9,18 @@ import uit.nantes.serverMobile.api.entities.User;
  */
 public class ToJson {
 
-    public static JSONObject userToJSON(User user) throws JSONException{
+    public static JSONObject userToJSON(User user) throws JSONException {
         JSONObject response = new JSONObject();
-        response.put("pseudo", user.getPseudo());
-        response.put("password", user.getPassword());
-        response.put("email", user.getEmail());
-        response.put("ok", true);
+        if (!user.equals(null)) {
+            response.put("ok", true);
+            response.put("pseudo", user.getPseudo());
+            response.put("password", user.getPassword());
+            response.put("email", user.getEmail());
+        } else {
+            response.put("ok", false);
+            response.put("message", "user non existant");
+        }
         return response;
     }
-    
-    
 
 }
