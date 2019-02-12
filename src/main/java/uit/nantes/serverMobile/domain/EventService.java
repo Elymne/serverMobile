@@ -47,4 +47,8 @@ public class EventService {
 		eventRepository.findAllByUser(createur).forEach(userEvents::add);
 		return userEvents;
 	}
+        
+        public long getCount(){
+            return eventRepository.count();
+        }
 }
