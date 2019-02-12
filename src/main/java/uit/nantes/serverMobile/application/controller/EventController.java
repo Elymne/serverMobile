@@ -20,7 +20,7 @@ import uit.nantes.serverMobile.domain.EventService;
 import uit.nantes.serverMobile.domain.UserService;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/evenement")
 public class EventController {
 
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
@@ -31,26 +31,26 @@ public class EventController {
 	@Autowired
 	UserService userService;
 
-	@GetMapping(produces = "application/json", value = "/evenements")
+	@GetMapping(produces = "application/json", value = "/")
 	@ResponseBody
 	public List<Event> getEvents() {
 		return eventService.findAll();
 	}
 
-	@GetMapping(produces = "application/json", value = "/evenements/{idCreateur}")
+	@GetMapping(produces = "application/json", value = "/{idCreateur}")
 	@ResponseBody
 	public List<Event> getEventsByUser(@PathVariable("idCreateur") String idCreateur) {
 		User creator = userService.findById(idCreateur);
 		return eventService.findAllByUser(creator);
 	}
 
-	@GetMapping(produces = "application/json", value = "/evenement/{nom}")
+	@GetMapping(produces = "application/json", value = "/title/{nom}")
 	@ResponseBody
 	public Event getEvent(@PathVariable("nom") String titleEvent) {
 		return eventService.findByTitle(titleEvent);
 	}
 
-	@PostMapping(produces = "application/json", value = "/evenement/{idUtilisateur}/{nom}/{date}/{lieu}")
+	@PostMapping(produces = "application/json", value = "/{idUtilisateur}/{nom}/{date}/{lieu}")
 	@ResponseBody
 	public Event createEvent(@PathVariable("idUtilisateur") String idCreator, @PathVariable("nom") String titleEvent,
 			@PathVariable("date") String dateEvent, @PathVariable("lieu") String placeEvent) {
@@ -62,7 +62,7 @@ public class EventController {
 		return eventService.findById(newEvent.getId());
 	}
 
-	@PutMapping(produces = "application/json", value = "/evenement/{idEvenement}/{nouveauNom}/{nouvelleDate}/{nouveauLieu}")
+	@PutMapping(produces = "application/json", value = "/{idEvenement}/{nouveauNom}/{nouvelleDate}/{nouveauLieu}")
 	@ResponseBody
 	public Event updateEvent(@PathVariable("idEvenement") String idEvent, @PathVariable("nouveauNom") String newName,
 			@PathVariable("nouvelleDate") String newDate, @PathVariable("nouveauLieu") String newPlace) {
@@ -70,7 +70,7 @@ public class EventController {
 		return null;
 	}
 
-	@DeleteMapping(produces = "application/json", value = "/evenement/{id}")
+	@DeleteMapping(produces = "application/json", value = "/{id}")
 	@ResponseBody
 	public boolean deleteEvent(@PathVariable("id") String idEvent) {
 		eventService.deleteEvent(idEvent);

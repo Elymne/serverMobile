@@ -14,7 +14,7 @@ public class UserService {
     IUserRepository userRepository;
 
     public User findById(String id) {
-        User result = null;
+        User result = new User("","","");
         try {
             result = userRepository.findById(id).get();
         } catch (NoSuchElementException e) {

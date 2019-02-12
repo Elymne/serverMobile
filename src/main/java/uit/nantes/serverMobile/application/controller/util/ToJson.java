@@ -11,7 +11,7 @@ public class ToJson {
 
     public static JSONObject userToJSON(User user) throws JSONException {
         JSONObject response = new JSONObject();
-        if (!user.equals(null)) {
+        if (!user.getPseudo().equals("")) {
             response.put("ok", true);
             response.put("pseudo", user.getPseudo());
             response.put("password", user.getPassword());
