@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uit.nantes.serverMobile.api.entities.Event;
-import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.infra.jpa.IEventRepository;
 
 @Service
@@ -22,6 +21,12 @@ public class EventService {
 	
 	public Event findByTitle(String title) {
 		return eventRepository.findByTitle(title);
+	}
+	
+	public List<Event> findAllByIdUser(String idUser){
+		List<Event> userEvents = new ArrayList<Event>();
+		eventRepository.findAllByIdUser(idUser).forEach(userEvents::add);
+		return userEvents;
 	}
 	
 	public void insertEvent(Event event) {
@@ -40,11 +45,5 @@ public class EventService {
 		List<Event> events = new ArrayList<Event>();
 		eventRepository.findAll().forEach(events::add);
 		return events; 
-	}
-	
-	public List<Event> findAllByUser(User createur){
-		List<Event> userEvents = new ArrayList<Event>();
-		eventRepository.findAllByUser(createur).forEach(userEvents::add);
-		return userEvents;
 	}
 }
