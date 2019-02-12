@@ -1,8 +1,8 @@
 package uit.nantes.serverMobile.application.controller;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import uit.nantes.serverMobile.api.entities.Event;
-import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.domain.EventService;
 import uit.nantes.serverMobile.domain.UserService;
 
@@ -37,37 +37,33 @@ public class EventController {
 		return eventService.findAll();
 	}
 
-	@GetMapping(produces = "application/json", value = "/{idCreateur}")
+	@GetMapping(produces = "application/json", value = "/get/{idCreateur}")
 	@ResponseBody
 	public List<Event> getEventsByUser(@PathVariable("idCreateur") String idCreateur) {
-		User creator = userService.findById(idCreateur);
-		return eventService.findAllByUser(creator);
+		return eventService.findAllByIdUser(idCreateur);
 	}
 
-	@GetMapping(produces = "application/json", value = "/title/{nom}")
+	@GetMapping(produces = "application/json", value = "/{nom}")
 	@ResponseBody
-	public Event getEvent(@PathVariable("nom") String titleEvent) {
+	public Event getEventByTitle(@PathVariable("nom") String titleEvent) {
 		return eventService.findByTitle(titleEvent);
 	}
 
-	@PostMapping(produces = "application/json", value = "/{idUtilisateur}/{nom}/{date}/{lieu}")
+	@PostMapping(produces = "application/json", value = "/{idUtilisateur}")
 	@ResponseBody
-	public Event createEvent(@PathVariable("idUtilisateur") String idCreator, @PathVariable("nom") String titleEvent,
-			@PathVariable("date") String dateEvent, @PathVariable("lieu") String placeEvent) {
-		User createur = userService.findById(idCreator);
-		LocalDate localDatePlace = LocalDate.parse(dateEvent, formatter);
-		Event newEvent = new Event(titleEvent, localDatePlace, placeEvent, createur);
-		eventService.insertEvent(newEvent);
-
-		return eventService.findById(newEvent.getId());
+	public Event createEvent(@PathVariable("idUtilisateur") String idUser, @RequestBody Event event) {
+		userService.findById(idUser);
+		String uuid = UUID.randomUUID().toString();
+		event.setId(uuid);
+		eventService.insertEvent(event);
+		return eventService.findById(uuid);
 	}
 
 	@PutMapping(produces = "application/json", value = "/{idEvenement}/{nouveauNom}/{nouvelleDate}/{nouveauLieu}")
 	@ResponseBody
-	public Event updateEvent(@PathVariable("idEvenement") String idEvent, @PathVariable("nouveauNom") String newName,
-			@PathVariable("nouvelleDate") String newDate, @PathVariable("nouveauLieu") String newPlace) {
-
-		return null;
+	public Event updateEvent(@RequestBody Event event) {
+		eventService.updateEvent(event);
+		return eventService.findById(event.getId());
 	}
 
 	@DeleteMapping(produces = "application/json", value = "/{id}")
