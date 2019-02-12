@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uit.nantes.serverMobile.api.entities.Event;
-import uit.nantes.serverMobile.infra.IEventRepository;
+import uit.nantes.serverMobile.infra.jpa.IEventRepository;
 
 @Service
 public class EventService {

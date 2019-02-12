@@ -1,4 +1,4 @@
-package uit.nantes.serverMobile.infra;
+package uit.nantes.serverMobile.infra.jpa;
 
 import org.springframework.data.repository.CrudRepository;
 
