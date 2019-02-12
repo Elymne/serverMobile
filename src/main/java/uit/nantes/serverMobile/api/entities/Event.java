@@ -3,6 +3,8 @@ package uit.nantes.serverMobile.api.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,12 +28,12 @@ public class Event implements Serializable {
 
     @Id
     @Column(name = "idEvent", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String id;
 
     private String title;
     private LocalDate date;
     private Boolean active;
+    private String place;
 
     @OneToMany(mappedBy = "event")
     private List<Expense> expenseList;
@@ -52,12 +54,13 @@ public class Event implements Serializable {
         super();
     }
 
-    public Event(String id, String title, LocalDate date, User user) {
-        this.id = id;
+    public Event(String title, LocalDate date, String place, User user) {
+        this.id = UUID.randomUUID().toString();
         this.title = title;
         this.date = date;
         this.user = user;
         this.active = true;
+        this.place = place;
     }
 
     public List<Expense> getExpenseList() {
@@ -96,7 +99,15 @@ public class Event implements Serializable {
         this.title = title;
     }
 
-    public LocalDate getDate() {
+    public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public LocalDate getDate() {
         return date;
     }
 
