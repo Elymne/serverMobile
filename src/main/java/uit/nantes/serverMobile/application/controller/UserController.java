@@ -45,7 +45,7 @@ public class UserController {
 
     @PutMapping(path = "/update/{id}")
     public @ResponseBody
-    String updatePasswordById(@PathVariable String id, @RequestBody User user) throws JSONException {
+    String update(@PathVariable String id, @RequestBody User user) throws JSONException {
         Boolean result = userService.update(id, user);
         
         return JsonResponse.updateJsonResponse(result).toString();

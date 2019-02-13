@@ -1,27 +1,24 @@
-package uit.nantes.serverMobile.domain.security;
+package uit.nantes.serverMobile.domain.util;
 
 import uit.nantes.serverMobile.api.entities.Event;
 
 public class EventCheck {
 
-    public static boolean checkEventUpdate(Event newEvent, Event repoEvent) {
-        boolean result = false;
-        if (newEvent.getTitle().equals(repoEvent.getTitle())) {
-            if (newEvent.getPlace().equals(repoEvent.getPlace())) {
-                if (newEvent.getDate().equals(repoEvent.getDate())) {
-                    // if(newEvent.getActive().equals(repoEvent.getActive())) {
-                    return true;
-                    // }
-                }
-            }
+    public static boolean checkUpdate(Event event) {
+        boolean result = true;
+        if(event.getTitle().isBlank()
+                || event.getPlace().isBlank()){
+            result = false;
         }
         return result;
     }
 
-    public static boolean checkEventInsert(Event event, Event repoEvent) {
-        boolean result = false;
-        if (event.getTitle().equals(repoEvent.getTitle())) {
-            result = true;
+    public static boolean checkInsert(Event event) {
+        boolean result = true;
+        if(event.getTitle().isBlank()
+                || event.getPlace().isBlank()
+                || !event.getUser().doesExist()){
+            result = false;
         }
         return result;
     }

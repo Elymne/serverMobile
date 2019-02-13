@@ -7,11 +7,9 @@ import uit.nantes.serverMobile.api.entities.User;
  */
 public class UserCheck {
 
-    public static boolean checkUpdate(User user, User userUpdate) {
+    public static boolean checkUpdate(User user) {
         boolean result = true;
-        if(user.getPseudo().equals(userUpdate.getPseudo())
-                || user.getEmail().equals(userUpdate.getEmail())
-                || user.getPseudo().isBlank()
+        if(user.getPseudo().isBlank()
                 || user.getEmail().isBlank()
                 || user.getPassword().isBlank()
                 || user.getPassword().length() < 5){

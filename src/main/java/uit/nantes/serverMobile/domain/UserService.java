@@ -53,7 +53,7 @@ public class UserService {
         boolean result = true;
         if (userRepository.existsById(id)) {
             User userUpdate = userRepository.findById(id).get();
-            if (UserCheck.checkUpdate(user, userUpdate)) {
+            if (UserCheck.checkUpdate(userUpdate)) {
                 userUpdate.setEmail(user.getEmail());
                 userUpdate.setPassword(user.getPassword());
                 userUpdate.setPseudo(user.getPseudo());

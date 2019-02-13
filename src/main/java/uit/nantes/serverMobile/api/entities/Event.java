@@ -44,8 +44,10 @@ public class Event implements Serializable {
         CascadeType.PERSIST},
             fetch = FetchType.LAZY)
     @JoinTable(name = "user_event",
-            joinColumns = { @JoinColumn(name = "event_id") },
-            inverseJoinColumns = { @JoinColumn(name = "user_id") })
+            joinColumns = {
+                @JoinColumn(name = "event_id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "user_id")})
     private List<User> userList;
 
     @ManyToOne
@@ -88,10 +90,6 @@ public class Event implements Serializable {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -101,14 +99,14 @@ public class Event implements Serializable {
     }
 
     public String getPlace() {
-		return place;
-	}
+        return place;
+    }
 
-	public void setPlace(String place) {
-		this.place = place;
-	}
+    public void setPlace(String place) {
+        this.place = place;
+    }
 
-	public LocalDate getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -123,21 +121,29 @@ public class Event implements Serializable {
     public void setActive(Boolean active) {
         this.active = active;
     }
-    
-    public void exist(){
+
+    public User getUser() {
+        return user;
+    }
+
+    public void exist() {
         this.exist = true;
     }
-    
-    public void notExist(){
+
+    public void notExist() {
         this.exist = false;
     }
-    
-    public boolean doExist(){
+
+    public boolean doExist() {
         boolean result = false;
-        if(this.exist){
+        if (this.exist) {
             result = true;
         }
         return result;
+    }
+    
+    public void createId(){
+        this.id = UUID.randomUUID().toString();
     }
 
     @Override
