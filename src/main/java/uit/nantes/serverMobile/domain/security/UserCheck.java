@@ -1,4 +1,4 @@
-package uit.nantes.serverMobile.domain.util;
+package uit.nantes.serverMobile.domain.security;
 
 import uit.nantes.serverMobile.api.entities.User;
 
@@ -19,16 +19,14 @@ public class UserCheck {
         return result;
     }
 
-    public static boolean checkInsert(User user, String pseudo, String email) {
+    public static boolean checkInsert(User user) {
         boolean result = true;
-        if (user.getEmail() == email 
-                || user.getPseudo() == pseudo
-                || user.getEmail() == null
-                || user.getEmail() == null
+        if (user.getPseudo().isBlank()
+                || user.getEmail().isBlank()
+                || user.getPassword().isBlank()
                 || user.getPassword().length() < 5) {
             result = false;
         }
-
         return result;
     }
 }

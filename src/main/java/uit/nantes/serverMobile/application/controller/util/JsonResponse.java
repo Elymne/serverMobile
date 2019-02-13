@@ -17,21 +17,7 @@ public class JsonResponse {
 
     public static JSONObject getJsonResponse(User user) throws JSONException {
         JSONObject response = new JSONObject();
-        if (!user.getPseudo().equals("")) {
-            response.put("ok", true);
-            response.put("pseudo", user.getPseudo());
-            response.put("password", user.getPassword());
-            response.put("email", user.getEmail());
-        } else {
-            response.put("ok", false);
-            response.put("message", "user non existant");
-        }
-        return response;
-    }
-    
-    public static JSONObject getJsonResponseBis(User user) throws JSONException {
-        JSONObject response = new JSONObject();
-        if (!user.getPseudo().equals(null)) {
+        if (user.doesExist()) {
             response.put("ok", true);
             response.put("pseudo", user.getPseudo());
             response.put("password", user.getPassword());

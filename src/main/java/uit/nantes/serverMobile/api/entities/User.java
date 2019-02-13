@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 /**
  * @author Djurdjevic Sacha
@@ -30,6 +31,8 @@ public class User implements Serializable {
     @Column(unique = true, nullable = false)
     private String email;
     private String password;
+    @Transient
+    private boolean exist;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     private List<Expense> expenseList;
@@ -110,6 +113,25 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public void exist(){
+        this.exist = true;
+    }
+    
+    public void notExist(){
+        this.exist = false;
+    }
+    
+    public boolean doesExist(){
+        boolean result = false;
+        if(this.exist)
+            result = true;
+        return result;
+    }
+    
+    public void createId(){
+        this.id = UUID.randomUUID().toString();
     }
 
     @Override

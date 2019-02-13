@@ -33,13 +33,13 @@ public class UserController {
     @GetMapping(path = "/get/email/{id}")
     public @ResponseBody
     String getUserByEmail(@PathVariable String id) throws JSONException {
-        return JsonResponse.getJsonResponseBis(userService.findByEmail(id)).toString();
+        return JsonResponse.getJsonResponse(userService.findByEmail(id)).toString();
     }
 
     @GetMapping(path = "/get/pseudo/{id}")
     public @ResponseBody
     String getUserByPseudo(@PathVariable String id) throws JSONException {
-        return JsonResponse.getJsonResponseBis(userService.findByPseudo(id)).toString();
+        return JsonResponse.getJsonResponse(userService.findByPseudo(id)).toString();
     }
 
     @PutMapping(path = "/update/{id}")
@@ -53,10 +53,10 @@ public class UserController {
     @PostMapping(path = "/add")
     public @ResponseBody
     String addUser(@RequestBody User user) throws JSONException {
-        User newuser = new User(user.getPseudo(), user.getEmail(), user.getPassword());
+        user.createId();
         Boolean result = userService.insert(user);
         
-        return newuser.toString();
+        return JsonResponse.insertJsonResponse(result).toString();
     }
 
 }
