@@ -35,6 +35,8 @@ public class Event implements Serializable {
     private String place;
     @Transient
     private boolean exist;
+    @Transient
+    private String pseudoUser;
 
     @OneToMany(mappedBy = "event")
     private List<Expense> expenseList;
@@ -57,11 +59,11 @@ public class Event implements Serializable {
         super();
     }
 
-    public Event(String title, LocalDate date, String place, User user) {
+    public Event(String title, LocalDate date, String place, String idCreator) {
         this.id = UUID.randomUUID().toString();
         this.title = title;
+        this.pseudoUser = idCreator;
         this.date = date;
-        this.user = user;
         this.active = true;
         this.place = place;
     }
@@ -124,6 +126,10 @@ public class Event implements Serializable {
 
     public User getUser() {
         return user;
+    }
+    
+    public String getPseudoUser(){
+        return pseudoUser;
     }
 
     public void exist() {

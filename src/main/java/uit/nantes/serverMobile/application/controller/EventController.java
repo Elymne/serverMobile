@@ -1,11 +1,8 @@
 package uit.nantes.serverMobile.application.controller;
 
 import java.text.ParseException;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.UUID;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import uit.nantes.serverMobile.api.entities.Event;
 import uit.nantes.serverMobile.application.controller.util.JsonResponse;
-import uit.nantes.serverMobile.application.controller.util.JsonToObject;
 import uit.nantes.serverMobile.domain.EventService;
 import uit.nantes.serverMobile.domain.UserService;
 
@@ -28,48 +24,46 @@ import uit.nantes.serverMobile.domain.UserService;
 @RequestMapping(value = "/api/evenement")
 public class EventController {
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
-
     @Autowired
     EventService eventService;
 
     @Autowired
     UserService userService;
 
-    @GetMapping(produces = "application/json", value = "/")
+    @GetMapping(path = "/getAll")
     @ResponseBody
     public List<Event> getEvents() {
         return eventService.findAll();
     }
 
-    @GetMapping(produces = "application/json", value = "/{title}")
+    @GetMapping(path = "/get/title/{title}")
     @ResponseBody
     public Event getEventByTitle(@PathVariable("title") String title) {
         return eventService.findByTitle(title);
     }
 
-    @PostMapping(produces = "application/json")
+    @PostMapping(path = "/add")
     @ResponseBody
-    public String addEvent(@RequestBody JSONObject jsonObject) throws JSONException, ParseException {
-        Event event = JsonToObject.JsonToEvent(jsonObject);
+    public String addEvent(@RequestBody Event event) throws JSONException, ParseException {
+        event.setUser(userService.findByPseudo(event.getPseudoUser()));
+        event.createId();
         boolean result = eventService.insert(event);
-        
+
         return JsonResponse.insertJsonResponse(result).toString();
     }
 
-    @PutMapping(produces = "application/json", value = "/{id}")
+    @PutMapping(path = "/update/{id}")
     @ResponseBody
-    public String updateEvent(@PathVariable String id, @RequestBody JSONObject jsonObject) throws JSONException, ParseException {
-        
-        Event event = JsonToObject.JsonToEvent(jsonObject);
+    public String updateEvent(@PathVariable String id, @RequestBody Event event) throws JSONException, ParseException {
+        event.setUser(userService.findByPseudo(event.getPseudoUser()));
         boolean result = eventService.update(id, event);
-        
+
         return JsonResponse.updateJsonResponse(result).toString();
     }
 
-    @DeleteMapping(produces = "application/json", value = "/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     @ResponseBody
-    public String deleteEvent(@PathVariable("id") String id) throws JSONException {
+    public String deleteEvent(@PathVariable String id) throws JSONException {
         boolean result = eventService.delete(id);
         return JsonResponse.deleteJsonResponse(result).toString();
     }
