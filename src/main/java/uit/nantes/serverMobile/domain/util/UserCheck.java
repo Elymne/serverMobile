@@ -1,4 +1,4 @@
-package uit.nantes.serverMobile.domain.security;
+package uit.nantes.serverMobile.domain.util;
 
 import uit.nantes.serverMobile.api.entities.User;
 

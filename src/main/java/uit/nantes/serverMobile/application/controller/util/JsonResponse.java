@@ -14,11 +14,15 @@ public class JsonResponse {
     
     final static String INSERT_ERROR_MESSAGE = "L'insertion impossible";
     final static String INSERT_OK_MESSAGE = "Insertion faite";
+    
+    final static String DELETE_ERROR_MESSAGE = "Suppression non effectué";
+    final static String DELETE_OK_MESSAGE = "Suppression effectué";
 
-    public static JSONObject getJsonResponse(User user) throws JSONException {
+    public static JSONObject getJsonUserResponse(User user) throws JSONException {
         JSONObject response = new JSONObject();
         if (user.doesExist()) {
             response.put("ok", true);
+            response.put("id", user.getId());
             response.put("pseudo", user.getPseudo());
             response.put("password", user.getPassword());
             response.put("email", user.getEmail());
@@ -52,6 +56,20 @@ public class JsonResponse {
         }else{
             response.put("ok", false);
             response.put("message", UPDATE_ERROR_MESSAGE);
+        }
+        
+        return response;
+    }
+    
+    public static JSONObject deleteJsonResponse(boolean value) throws JSONException{
+        JSONObject response = new JSONObject();
+        
+        if(value){
+            response.put("ok", true);
+            response.put("message", DELETE_OK_MESSAGE);
+        }else{
+            response.put("ok", false);
+            response.put("message", DELETE_ERROR_MESSAGE);
         }
         
         return response;

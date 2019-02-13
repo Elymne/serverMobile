@@ -2,7 +2,7 @@ package uit.nantes.serverMobile.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import uit.nantes.serverMobile.api.entities.User;
-import uit.nantes.serverMobile.domain.security.UserCheck;
+import uit.nantes.serverMobile.domain.util.UserCheck;
 import uit.nantes.serverMobile.infra.jpa.IUserRepository;
 
 /**
