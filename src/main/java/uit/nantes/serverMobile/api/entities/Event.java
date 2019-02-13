@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 /**
  * @author Djurdjevic Sacha
@@ -32,6 +33,8 @@ public class Event implements Serializable {
     private LocalDate date;
     private Boolean active;
     private String place;
+    @Transient
+    private boolean exist;
 
     @OneToMany(mappedBy = "event")
     private List<Expense> expenseList;
@@ -119,6 +122,22 @@ public class Event implements Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+    
+    public void exist(){
+        this.exist = true;
+    }
+    
+    public void notExist(){
+        this.exist = false;
+    }
+    
+    public boolean doExist(){
+        boolean result = false;
+        if(this.exist){
+            result = true;
+        }
+        return result;
     }
 
     @Override

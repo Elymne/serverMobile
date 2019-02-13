@@ -18,39 +18,31 @@ public class EventService {
     IEventRepository eventRepository;
 
     public Event findById(String id) {
-        Event result = new Event();
-        try {
-            result = eventRepository.findById(id).get();
-        } catch (NoSuchElementException e) {
-            System.err.println(e);
+        Event event = new Event();
+        event.notExist();
+        if(eventRepository.existsById(id)){
+            event = eventRepository.findById(id).get();
+            event.exist();
         }
-        return result;
+        return event;
     }
 
     public Event findByTitle(String title) {
         Event result = new Event();
-        try {
-            result = eventRepository.findByTitle(title);
-        } catch (NoSuchElementException e) {
-            System.err.println(e);
+        result.notExist();
+        for (Event event : eventRepository.findAll()) {
+            if (event.getTitle().equals(title)) {
+                result = event;
+                result.exist();
+                break;
+            }
         }
         return result;
-    }
-
-    public List<Event> findAllByIdUser(String idUser) {
-        List<Event> userEvents = new ArrayList<Event>();
-        eventRepository.findAllByIdUser(idUser).forEach(userEvents::add);
-        return userEvents;
     }
 
     public boolean insertEvent(Event event) {
-        boolean result = false;
-        Event repoEvent = eventRepository.findByTitle(event.getTitle());
-        if (!EventCheck.checkEventInsert(event, repoEvent)) {
-            eventRepository.save(event);
-            result = true;
-        }
-        return result;
+        eventRepository.save(event);
+        return true;
     }
 
     public boolean updateEvent(Event event) {

@@ -37,12 +37,6 @@ public class EventController {
 		return eventService.findAll();
 	}
 
-	@GetMapping(produces = "application/json", value = "/get/{idCreateur}")
-	@ResponseBody
-	public List<Event> getEventsByUser(@PathVariable("idCreateur") String idCreateur) {
-		return eventService.findAllByIdUser(idCreateur);
-	}
-
 	@GetMapping(produces = "application/json", value = "/{nom}")
 	@ResponseBody
 	public Event getEventByTitle(@PathVariable("nom") String titleEvent) {
