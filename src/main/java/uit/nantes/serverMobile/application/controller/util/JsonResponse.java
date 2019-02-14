@@ -2,10 +2,11 @@ package uit.nantes.serverMobile.application.controller.util;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import uit.nantes.serverMobile.api.entities.Expense;
 import uit.nantes.serverMobile.api.entities.User;
 
 /**
- * @author Elymne
+ * @author Djurdjevic Sacha
  */
 public class JsonResponse {
     
@@ -29,6 +30,20 @@ public class JsonResponse {
         } else {
             response.put("ok", false);
             response.put("message", "user non existant");
+        }
+        return response;
+    }
+    
+    public static JSONObject getJsonExpenseResponse(Expense expense) throws JSONException {
+        JSONObject response = new JSONObject();
+        if (expense.doesExist()) {
+            response.put("ok", true);
+            response.put("id", expense.getId());
+            response.put("amount", expense.getAmount());
+            response.put("wording", expense.getWording());
+        } else {
+            response.put("ok", false);
+            response.put("message", "dépense non existante");
         }
         return response;
     }

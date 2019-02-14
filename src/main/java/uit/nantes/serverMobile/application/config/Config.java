@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import uit.nantes.serverMobile.application.controller.util.JsonResponse;
 import uit.nantes.serverMobile.domain.EventService;
+import uit.nantes.serverMobile.domain.ExpenseService;
 import uit.nantes.serverMobile.domain.UserService;
 
 /**
@@ -24,6 +25,11 @@ public class Config {
     @Bean
     public EventService getEventService(){
         return new EventService();
+    }
+    
+    @Bean
+    public ExpenseService getExpenseService(){
+        return new ExpenseService();
     }
     
     @Bean

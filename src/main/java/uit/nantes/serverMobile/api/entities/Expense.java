@@ -1,6 +1,7 @@
 package uit.nantes.serverMobile.api.entities;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,6 +23,7 @@ public class Expense implements Serializable {
 
     private double amount;
     private String wording;
+    private boolean exist;
 
     @ManyToOne
     private Event event;
@@ -33,7 +35,7 @@ public class Expense implements Serializable {
         super();
     }
 
-    public Expense(String id, double amount, String wording) {
+    public Expense(double amount, String wording) {
         this.amount = amount;
         this.wording = wording;;
     }
@@ -65,9 +67,29 @@ public class Expense implements Serializable {
     public void setWording(String wording) {
         this.wording = wording;
     }
-    
-    public String getId(){
+
+    public String getId() {
         return this.id;
+    }
+
+    public void exist() {
+        this.exist = true;
+    }
+
+    public void notExist() {
+        this.exist = false;
+    }
+
+    public boolean doesExist() {
+        boolean result = false;
+        if (this.exist) {
+            result = true;
+        }
+        return result;
+    }
+
+    public void createId() {
+        this.id = UUID.randomUUID().toString();
     }
 
     @Override
