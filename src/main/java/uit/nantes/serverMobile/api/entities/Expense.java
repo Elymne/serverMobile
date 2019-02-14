@@ -25,6 +25,9 @@ public class Expense implements Serializable {
     private String wording;
     private boolean exist;
 
+    private String idEvent;
+    private String idUser;
+
     @ManyToOne
     private Event event;
 
@@ -35,9 +38,11 @@ public class Expense implements Serializable {
         super();
     }
 
-    public Expense(double amount, String wording) {
+    public Expense(double amount, String wording, String idEvent, String idUser) {
         this.amount = amount;
         this.wording = wording;;
+        this.idEvent = idEvent;
+        this.idUser = idUser;
     }
 
     public Event getEvent() {
@@ -50,6 +55,10 @@ public class Expense implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     public double getAmount() {
@@ -90,6 +99,14 @@ public class Expense implements Serializable {
 
     public void createId() {
         this.id = UUID.randomUUID().toString();
+    }
+
+    public String getIdEvent() {
+        return idEvent;
+    }
+
+    public String getIdUser() {
+        return idUser;
     }
 
     @Override

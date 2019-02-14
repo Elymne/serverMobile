@@ -11,9 +11,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import uit.nantes.serverMobile.api.entities.Event;
 import uit.nantes.serverMobile.api.entities.Expense;
+import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.application.controller.util.JsonResponse;
+import uit.nantes.serverMobile.domain.EventService;
 import uit.nantes.serverMobile.domain.ExpenseService;
+import uit.nantes.serverMobile.domain.UserService;
 
 /**
  * @author Djurdjevic Sacha
@@ -24,6 +28,12 @@ public class ExpenseController {
 
     @Autowired
     ExpenseService expenseService;
+    
+    @Autowired
+    UserService userService;
+    
+    @Autowired
+    EventService eventService;
 
     @GetMapping(path = "/get/{id}")
     public @ResponseBody
@@ -43,7 +53,10 @@ public class ExpenseController {
     public @ResponseBody
     String addUser(@RequestBody Expense expense) throws JSONException {
         expense.createId();
-        Boolean result = expenseService.insert(expense);
+        User user = userService.findById(expense.getIdUser());
+        Event event = eventService.findById(expense.getIdEvent());
+        
+        Boolean result = expenseService.insert(expense, user, event);
 
         return JsonResponse.insertJsonResponse(result).toString();
     }

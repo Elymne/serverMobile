@@ -3,7 +3,9 @@ package uit.nantes.serverMobile.domain;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import uit.nantes.serverMobile.api.entities.Event;
 import uit.nantes.serverMobile.api.entities.Expense;
+import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.domain.util.ExpenseCheck;
 import uit.nantes.serverMobile.infra.jpa.IExpenseRepository;
 
@@ -72,9 +74,9 @@ public class ExpenseService {
         return result;
     }
 
-    public boolean insert(Expense expense) {
+    public boolean insert(Expense expense, User user, Event event) {
         boolean result = false;
-        if(ExpenseCheck.checkInsert(expense)){
+        if(ExpenseCheck.checkInsert(expense, user, event)){
             expenseRepository.save(expense);
             result = true;
         }
