@@ -59,10 +59,10 @@ public class Event implements Serializable {
         super();
     }
 
-    public Event(String title, LocalDate date, String place, String idCreator) {
+    public Event(String title, LocalDate date, String place, String pseudoUser) {
         this.id = UUID.randomUUID().toString();
         this.title = title;
-        this.pseudoUser = idCreator;
+        this.pseudoUser = pseudoUser;
         this.date = date;
         this.active = true;
         this.place = place;
