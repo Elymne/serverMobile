@@ -3,7 +3,7 @@ package uit.nantes.serverMobile.domain.util;
 import uit.nantes.serverMobile.api.entities.User;
 
 /**
- * @author Elymne
+ * @author Djurdjevic Sacha
  */
 public class UserCheck {
 

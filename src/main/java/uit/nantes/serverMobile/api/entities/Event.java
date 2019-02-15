@@ -36,8 +36,6 @@ public class Event implements Serializable {
     private String place;
     @Transient
     private boolean exist;
-    @Transient
-    private String pseudoUser;
 
     @OneToMany(mappedBy = "event")
     @JsonIgnore
@@ -121,10 +119,6 @@ public class Event implements Serializable {
     public User getUser() {
         return user;
     }
-    
-    public String getPseudoUser(){
-        return pseudoUser;
-    }
 
     public void exist() {
         this.exist = true;
@@ -141,8 +135,8 @@ public class Event implements Serializable {
         }
         return result;
     }
-    
-    public void createId(){
+
+    public void createId() {
         this.id = UUID.randomUUID().toString();
     }
 

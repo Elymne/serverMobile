@@ -19,7 +19,6 @@ import uit.nantes.serverMobile.api.entities.Event;
 import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.application.controller.util.JsonResponse;
 import uit.nantes.serverMobile.domain.EventService;
-import uit.nantes.serverMobile.domain.UserService;
 
 @RestController
 @RequestMapping(value = "/api/evenement")
@@ -28,12 +27,9 @@ public class EventController {
     @Autowired
     EventService eventService;
 
-    @Autowired
-    UserService userService;
-
     @GetMapping(path = "/getAll")
     @ResponseBody
-    public List<Event> getEvents() {
+    public List<Event> getAll() {
         return eventService.findAll();
     }
     
@@ -41,14 +37,6 @@ public class EventController {
     @ResponseBody
     public Event getEventById(@PathVariable String id) {
         return eventService.findById(id);
-    }
-    
-    @GetMapping(path = "/get/userList/{id}")
-    @ResponseBody
-    public List<User> test(@PathVariable String id) {
-        Event event =  eventService.findById(id);
-        
-        return event.getUserList();
     }
     
     @GetMapping(path = "/get/title/{title}")
@@ -60,29 +48,31 @@ public class EventController {
     @PostMapping(path = "/add")
     @ResponseBody
     public String addEvent(@RequestBody Event event) throws JSONException, ParseException {
-        event.setUser(userService.findByPseudo(event.getPseudoUser()));
         event.createId();
         event.setActive(true);
         boolean result = eventService.insert(event);
-
         return JsonResponse.insertJsonResponse(result).toString();
     }
 
     @PutMapping(path = "/update/{id}")
     @ResponseBody
     public String updateEvent(@PathVariable String id, @RequestBody Event event) throws JSONException, ParseException {
-        event.setUser(userService.findByPseudo(event.getPseudoUser()));
         boolean result = eventService.update(id, event);
-
         return JsonResponse.updateJsonResponse(result).toString();
     }
 
     @PutMapping(path = "/addUser/{id}")
     @ResponseBody
-    public String updateEvent(@PathVariable String id, @RequestBody User user) throws JSONException, ParseException {
-        
+    public String addUserToEvent(@PathVariable String id, @RequestBody User user) throws JSONException, ParseException {
         boolean result = eventService.addUser(id, user);
         return JsonResponse.addUserJsonResponse(result).toString();
+    }
+    
+    @PutMapping(path = "/removeUser/{id}")
+    @ResponseBody
+    public String removeUserFromEvent(@PathVariable String id, @RequestBody User user) throws JSONException, ParseException { 
+        boolean result = eventService.removeUser(id, user);
+        return JsonResponse.removeUserJsonResponse(result).toString();
     }
 
     @DeleteMapping(path = "/delete/{id}")

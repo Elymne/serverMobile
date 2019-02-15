@@ -13,8 +13,8 @@ public class UserService {
 
     @Autowired
     IUserRepository userRepository;
-    
-    public List<User> findAll(){
+
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
@@ -57,12 +57,10 @@ public class UserService {
     public boolean update(String id, User user) {
         boolean result = true;
         if (userRepository.existsById(id)) {
-            User userUpdate = userRepository.findById(id).get();
-            if (UserCheck.checkUpdate(userUpdate)) {
-                userUpdate.setEmail(user.getEmail());
-                userUpdate.setPassword(user.getPassword());
-                userUpdate.setPseudo(user.getPseudo());
-                userRepository.save(userUpdate);
+            User userToUpdate = userRepository.findById(id).get();
+            if (UserCheck.checkUpdate(user)) {
+                userToUpdate = user;
+                userRepository.save(userToUpdate);
             } else {
                 result = false;
             }
@@ -72,13 +70,12 @@ public class UserService {
 
     public boolean insert(User user) {
         boolean result = false;
-        boolean pseudo = !this.findByPseudo(user.getPseudo()).doesExist();
-        boolean email = !this.findByEmail(user.getEmail()).doesExist();
-        if (pseudo && email) {
-            if (UserCheck.checkInsert(user)) {
-                userRepository.save(user);
-                result = true;
-            }
+        if (UserCheck.checkInsert(user)
+                && !this.findByEmail(user.getEmail()).doesExist()
+                && !this.findByPseudo(user.getPseudo()).doesExist()) {
+            user.createId();
+            userRepository.save(user);
+            result = true;
         }
         return result;
     }

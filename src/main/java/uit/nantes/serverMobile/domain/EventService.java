@@ -1,6 +1,6 @@
 package uit.nantes.serverMobile.domain;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +45,13 @@ public class EventService {
 
     public boolean insert(Event event) {
         boolean result = false;
-        boolean title = !this.eventRepository.existsById(event.getTitle());
-        if (title) {
-            if (EventCheck.checkInsert(event)) {
-                eventRepository.save(event);
-                result = true;
+        if (!this.eventRepository.existsById(event.getTitle())
+                && EventCheck.checkInsert(event)) {
+            if (event.getDate().equals(null)) {
+                event.setDate(LocalDate.now().plusDays(1));
             }
+            eventRepository.save(event);
+            result = true;
         }
         return result;
     }
@@ -58,22 +59,32 @@ public class EventService {
     public boolean update(String id, Event event) {
         boolean result = false;
         if (eventRepository.existsById(event.getId())) {
-            Event eventUpdate = eventRepository.findById(id).get();
-            if (EventCheck.checkUpdate(eventUpdate)) {
-                eventUpdate.setTitle(event.getTitle());
-                eventUpdate.setPlace(event.getPlace());
-                eventRepository.save(eventUpdate);
+            Event eventToUpdate = eventRepository.findById(id).get();
+            if (EventCheck.checkUpdate(event)) {
+                eventToUpdate = event;
+                eventRepository.save(eventToUpdate);
                 result = true;
             }
         }
         return result;
     }
-    
-    public boolean addUser(String id, User user){
+
+    public boolean addUser(String id, User user) {
         boolean result = false;
-        if(eventRepository.existsById(id)){
+        if (eventRepository.existsById(id)) {
             Event event = eventRepository.findById(id).get();
             event.getUserList().add(user);
+            eventRepository.save(event);
+            result = true;
+        }
+        return result;
+    }
+
+    public boolean removeUser(String id, User user) {
+        boolean result = false;
+        if (eventRepository.existsById(id)) {
+            Event event = eventRepository.findById(id).get();
+            event.getUserList().remove(user);
             eventRepository.save(event);
             result = true;
         }

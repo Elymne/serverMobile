@@ -60,7 +60,6 @@ public class UserController {
     @PostMapping(path = "/add")
     public @ResponseBody
     String addUser(@RequestBody User user) throws JSONException {
-        user.createId();
         Boolean result = userService.insert(user);
         return JsonResponse.insertJsonResponse(result).toString();
     }
