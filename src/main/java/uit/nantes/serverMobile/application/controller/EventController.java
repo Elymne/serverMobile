@@ -47,6 +47,7 @@ public class EventController {
     public String addEvent(@RequestBody Event event) throws JSONException, ParseException {
         event.setUser(userService.findByPseudo(event.getPseudoUser()));
         event.createId();
+        event.setActive(true);
         boolean result = eventService.insert(event);
 
         return JsonResponse.insertJsonResponse(result).toString();
