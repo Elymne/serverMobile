@@ -55,14 +55,6 @@ public class User implements Serializable {
         super();
     }
 
-    public User(String pseudo, String email, String password) {
-        super();
-        this.id = UUID.randomUUID().toString();
-        this.pseudo = pseudo;
-        this.email = email;
-        this.password = password;
-    }
-
     public List<Event> getEventAdminList() {
         return eventAdminList;
     }

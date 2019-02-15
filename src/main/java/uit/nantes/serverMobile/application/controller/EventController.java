@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import uit.nantes.serverMobile.api.entities.Event;
+import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.application.controller.util.JsonResponse;
 import uit.nantes.serverMobile.domain.EventService;
 import uit.nantes.serverMobile.domain.UserService;
@@ -47,7 +48,7 @@ public class EventController {
     public String addEvent(@RequestBody Event event) throws JSONException, ParseException {
         event.setUser(userService.findByPseudo(event.getPseudoUser()));
         event.createId();
-        event.setActive(true);
+        //event.setActive(true);
         boolean result = eventService.insert(event);
 
         return JsonResponse.insertJsonResponse(result).toString();
@@ -60,6 +61,17 @@ public class EventController {
         boolean result = eventService.update(id, event);
 
         return JsonResponse.updateJsonResponse(result).toString();
+    }
+    
+    @PutMapping(path = "/addUser/{id}")
+    @ResponseBody
+    public String updateEvent(@PathVariable String id, @RequestBody User user) throws JSONException, ParseException {
+        
+        if(userService.findByPseudo(user.getPseudo()).doesExist()){
+            //
+        }
+
+        return null;
     }
 
     @DeleteMapping(path = "/delete/{id}")

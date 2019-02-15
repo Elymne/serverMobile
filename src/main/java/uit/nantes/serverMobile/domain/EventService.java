@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uit.nantes.serverMobile.api.entities.Event;
+import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.domain.util.EventCheck;
 import uit.nantes.serverMobile.infra.jpa.IEventRepository;
 
@@ -58,16 +59,25 @@ public class EventService {
     }
 
     public boolean update(String id, Event event) {
-        boolean result = true;
+        boolean result = false;
         if (eventRepository.existsById(event.getId())) {
             Event eventUpdate = eventRepository.findById(id).get();
             if (EventCheck.checkUpdate(eventUpdate)) {
                 eventUpdate.setTitle(event.getTitle());
                 eventUpdate.setPlace(event.getPlace());
                 eventRepository.save(eventUpdate);
-            } else {
-                result = false;
+                result = true;
             }
+        }
+        return result;
+    }
+    
+    public boolean addUser(String id, User user){
+        boolean result = false;
+        if(eventRepository.existsById(id)){
+            Event event = eventRepository.findById(id).get();
+            event.getUserList().add(user);
+            result = true;
         }
         return result;
     }

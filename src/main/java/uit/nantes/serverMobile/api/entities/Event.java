@@ -59,15 +59,6 @@ public class Event implements Serializable {
         super();
     }
 
-    public Event(String title, LocalDate date, String place, String idCreator) {
-        this.id = UUID.randomUUID().toString();
-        this.title = title;
-        this.pseudoUser = idCreator;
-        this.date = date;
-        this.active = true;
-        this.place = place;
-    }
-
     public List<Expense> getExpenseList() {
         return expenseList;
     }

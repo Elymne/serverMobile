@@ -38,13 +38,6 @@ public class Expense implements Serializable {
         super();
     }
 
-    public Expense(double amount, String wording, String idEvent, String idUser) {
-        this.amount = amount;
-        this.wording = wording;;
-        this.idEvent = idEvent;
-        this.idUser = idUser;
-    }
-
     public Event getEvent() {
         return event;
     }
