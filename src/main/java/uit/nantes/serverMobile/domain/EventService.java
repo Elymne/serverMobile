@@ -18,9 +18,7 @@ public class EventService {
     IEventRepository eventRepository;
 
     public List<Event> findAll() {
-        List<Event> events = new ArrayList<Event>();
-        eventRepository.findAll().forEach(events::add);
-        return events;
+        return eventRepository.findAll();
     }
 
     public Event findById(String id) {
@@ -40,7 +38,6 @@ public class EventService {
             if (event.getTitle().equals(title)) {
                 result = event;
                 result.exist();
-                break;
             }
         }
         return result;
@@ -77,6 +74,7 @@ public class EventService {
         if(eventRepository.existsById(id)){
             Event event = eventRepository.findById(id).get();
             event.getUserList().add(user);
+            eventRepository.save(event);
             result = true;
         }
         return result;

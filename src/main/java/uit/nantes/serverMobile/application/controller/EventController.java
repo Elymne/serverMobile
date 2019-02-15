@@ -36,7 +36,21 @@ public class EventController {
     public List<Event> getEvents() {
         return eventService.findAll();
     }
-
+    
+    @GetMapping(path = "/get/{id}")
+    @ResponseBody
+    public Event getEventById(@PathVariable String id) {
+        return eventService.findById(id);
+    }
+    
+    @GetMapping(path = "/get/userList/{id}")
+    @ResponseBody
+    public List<User> test(@PathVariable String id) {
+        Event event =  eventService.findById(id);
+        
+        return event.getUserList();
+    }
+    
     @GetMapping(path = "/get/title/{title}")
     @ResponseBody
     public Event getEventByTitle(@PathVariable("title") String title) {
@@ -48,7 +62,7 @@ public class EventController {
     public String addEvent(@RequestBody Event event) throws JSONException, ParseException {
         event.setUser(userService.findByPseudo(event.getPseudoUser()));
         event.createId();
-        //event.setActive(true);
+        event.setActive(true);
         boolean result = eventService.insert(event);
 
         return JsonResponse.insertJsonResponse(result).toString();
@@ -62,16 +76,13 @@ public class EventController {
 
         return JsonResponse.updateJsonResponse(result).toString();
     }
-    
+
     @PutMapping(path = "/addUser/{id}")
     @ResponseBody
     public String updateEvent(@PathVariable String id, @RequestBody User user) throws JSONException, ParseException {
         
-        if(userService.findByPseudo(user.getPseudo()).doesExist()){
-            //
-        }
-
-        return null;
+        boolean result = eventService.addUser(id, user);
+        return JsonResponse.addUserJsonResponse(result).toString();
     }
 
     @DeleteMapping(path = "/delete/{id}")

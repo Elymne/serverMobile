@@ -37,8 +37,8 @@ public class ExpenseController {
 
     @GetMapping(path = "/get/{id}")
     public @ResponseBody
-    String getUserById(@PathVariable String id) throws JSONException {
-        return JsonResponse.getJsonExpenseResponse(expenseService.findById(id)).toString();
+    Expense getUserById(@PathVariable String id) throws JSONException {
+        return expenseService.findById(id);
     }
 
     @PutMapping(path = "/update/{id}")

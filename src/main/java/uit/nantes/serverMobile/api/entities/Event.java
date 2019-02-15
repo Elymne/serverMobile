@@ -1,5 +1,6 @@
 package uit.nantes.serverMobile.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -39,6 +40,7 @@ public class Event implements Serializable {
     private String pseudoUser;
 
     @OneToMany(mappedBy = "event")
+    @JsonIgnore
     private List<Expense> expenseList;
 
     @ManyToMany(cascade = {
@@ -50,6 +52,7 @@ public class Event implements Serializable {
                 @JoinColumn(name = "event_id")},
             inverseJoinColumns = {
                 @JoinColumn(name = "user_id")})
+    @JsonIgnore
     private List<User> userList;
 
     @ManyToOne

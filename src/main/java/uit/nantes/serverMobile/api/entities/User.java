@@ -1,5 +1,6 @@
 package uit.nantes.serverMobile.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
@@ -35,9 +36,11 @@ public class User implements Serializable {
     private boolean exist;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    @JsonIgnore
     private List<Expense> expenseList;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    @JsonIgnore
     private List<Event> eventAdminList;
 
     @ManyToMany(cascade = {
@@ -49,6 +52,7 @@ public class User implements Serializable {
                 @JoinColumn(name = "user_id")},
             inverseJoinColumns = {
                 @JoinColumn(name = "event_id")})
+    @JsonIgnore
     private List<Event> eventList;
 
     public User() {

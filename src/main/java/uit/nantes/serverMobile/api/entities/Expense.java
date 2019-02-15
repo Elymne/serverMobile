@@ -1,5 +1,6 @@
 package uit.nantes.serverMobile.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -29,9 +30,11 @@ public class Expense implements Serializable {
     private String idUser;
 
     @ManyToOne
+    @JsonIgnore
     private Event event;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     public Expense() {

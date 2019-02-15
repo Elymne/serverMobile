@@ -1,5 +1,6 @@
 package uit.nantes.serverMobile.domain;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.domain.util.UserCheck;
@@ -12,6 +13,10 @@ public class UserService {
 
     @Autowired
     IUserRepository userRepository;
+    
+    public List<User> findAll(){
+        return userRepository.findAll();
+    }
 
     public User findById(String id) {
         User result = new User();
