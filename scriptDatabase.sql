@@ -1,13 +1,9 @@
-CREATE USER 'servermobile'@'%' IDENTIFIED WITH mysql_native_password AS '***';
-GRANT USAGE ON *.* TO 'servermobile'@'%' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;
-CREATE DATABASE IF NOT EXISTS `servermobile`;GRANT ALL PRIVILEGES ON `servermobile`.* TO 'servermobile'@'%';
-
 -- phpMyAdmin SQL Dump
 -- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 12 fév. 2019 à 10:38
+-- Généré le :  ven. 15 fév. 2019 à 11:58
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -25,6 +21,9 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `servermobile`
 --
+DROP DATABASE IF EXISTS `servermobile`;
+CREATE DATABASE IF NOT EXISTS `servermobile` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `servermobile`;
 
 -- --------------------------------------------------------
 
@@ -37,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `event` (
   `id_event` varchar(255) NOT NULL,
   `active` bit(1) DEFAULT NULL,
   `date` date DEFAULT NULL,
+  `place` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `user_id_user` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_event`),
@@ -53,6 +53,9 @@ DROP TABLE IF EXISTS `expense`;
 CREATE TABLE IF NOT EXISTS `expense` (
   `id` varchar(255) NOT NULL,
   `amount` double NOT NULL,
+  `exist` bit(1) NOT NULL,
+  `id_event` varchar(255) DEFAULT NULL,
+  `id_user` varchar(255) DEFAULT NULL,
   `wording` varchar(255) DEFAULT NULL,
   `event_id_event` varchar(255) DEFAULT NULL,
   `user_id_user` varchar(255) DEFAULT NULL,
@@ -77,7 +80,6 @@ CREATE TABLE IF NOT EXISTS `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(1),
 (1);
 
 -- --------------------------------------------------------
