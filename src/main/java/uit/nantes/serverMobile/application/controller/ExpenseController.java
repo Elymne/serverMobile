@@ -1,5 +1,6 @@
 package uit.nantes.serverMobile.application.controller;
 
+import java.util.List;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,8 +38,26 @@ public class ExpenseController {
 
     @GetMapping(path = "/get/{id}")
     public @ResponseBody
-    Expense getUserById(@PathVariable String id) throws JSONException {
+    Expense getExpenseById(@PathVariable String id) throws JSONException {
         return expenseService.findById(id);
+    }
+    
+    @GetMapping(path = "/get/user/{id}")
+    public @ResponseBody
+    List<Expense> getAllExpenseByUser(@PathVariable String id) throws JSONException {
+        return expenseService.findAllByUser(id);
+    }
+    
+    @GetMapping(path = "/get/event/{id}")
+    public @ResponseBody
+    List<Expense> getAllExpenseByEvent(@PathVariable String id) throws JSONException {
+        return expenseService.findAllByEventId(id);
+    }
+    
+    @GetMapping(path = "/get/event/{id}")
+    public @ResponseBody
+    List<Expense> getAllExpenseByUserAndEvent(@PathVariable String idUser, @PathVariable String idEvent) throws JSONException {
+        return expenseService.findAllByUserAndEvent(idUser, idEvent);
     }
 
     @PutMapping(path = "/update/{id}")

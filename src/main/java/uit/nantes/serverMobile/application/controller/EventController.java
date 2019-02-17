@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import uit.nantes.serverMobile.api.entities.Event;
 import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.application.controller.util.JsonResponse;

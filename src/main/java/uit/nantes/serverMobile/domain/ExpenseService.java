@@ -33,7 +33,7 @@ public class ExpenseService {
         return result;
     }
 
-    public List<Expense> findByEventId(String id) {
+    public List<Expense> findAllByEventId(String id) {
         List<Expense> result = new ArrayList<>();
         for (Expense expense : expenseRepository.findAll()) {
             if (expense.getEvent().getId().equals(id)) {
@@ -46,10 +46,24 @@ public class ExpenseService {
         return result;
     }
 
-    public List<Expense> findByUserCreator(String id) {
+    public List<Expense> findAllByUser(String id) {
         List<Expense> result = new ArrayList<>();
         for (Expense expense : expenseRepository.findAll()) {
             if (expense.getUser().getId().equals(id)) {
+                result.add(expense);
+            }
+        }
+        if (result.isEmpty()) {
+            result = null;
+        }
+        return result;
+    }
+    
+    public List<Expense> findAllByUserAndEvent(String idUser, String idEvent) {
+        List<Expense> result = new ArrayList<>();
+        for (Expense expense : expenseRepository.findAll()) {
+            if (expense.getUser().getId().equals(idUser)
+                    && expense.getIdEvent().equals(idEvent)) {
                 result.add(expense);
             }
         }
