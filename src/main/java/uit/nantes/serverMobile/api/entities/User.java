@@ -9,8 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
@@ -35,24 +33,14 @@ public class User implements Serializable {
     @Transient
     private boolean exist;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
-    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Expense> expenseList;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @JsonIgnore
     private List<Event> eventAdminList;
 
-    @ManyToMany(cascade = {
-        CascadeType.MERGE,
-        CascadeType.PERSIST,
-        CascadeType.ALL},
-            fetch = FetchType.EAGER)
-    @JoinTable(name = "user_event",
-            joinColumns = {
-                @JoinColumn(name = "user_id")},
-            inverseJoinColumns = {
-                @JoinColumn(name = "event_id")})
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "userList")
     @JsonIgnore
     private List<Event> eventList;
 

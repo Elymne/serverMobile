@@ -37,20 +37,14 @@ public class Event implements Serializable {
     private boolean exist;
 
     @OneToMany(mappedBy = "event")
-    @JsonIgnore
     private List<Expense> expenseList;
 
-    @ManyToMany(cascade = {
-        CascadeType.MERGE,
-        CascadeType.PERSIST,
-        CascadeType.ALL},
-            fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = User.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_event",
             joinColumns = {
                 @JoinColumn(name = "event_id")},
             inverseJoinColumns = {
                 @JoinColumn(name = "user_id")})
-    @JsonIgnore
     private List<User> userList;
 
     @ManyToOne
