@@ -45,8 +45,9 @@ public class User implements Serializable {
 
     @ManyToMany(cascade = {
         CascadeType.MERGE,
-        CascadeType.PERSIST},
-            fetch = FetchType.LAZY)
+        CascadeType.PERSIST,
+        CascadeType.ALL},
+            fetch = FetchType.EAGER)
     @JoinTable(name = "user_event",
             joinColumns = {
                 @JoinColumn(name = "user_id")},
@@ -57,30 +58,6 @@ public class User implements Serializable {
 
     public User() {
         super();
-    }
-
-    public List<Event> getEventAdminList() {
-        return eventAdminList;
-    }
-
-    public void setExpenseList(List<Expense> expenseList) {
-        this.expenseList = expenseList;
-    }
-
-    public void setEventAdminList(List<Event> eventAdminList) {
-        this.eventAdminList = eventAdminList;
-    }
-
-    public void setEventList(List<Event> eventList) {
-        this.eventList = eventList;
-    }
-
-    public List<Expense> getExpenseList() {
-        return expenseList;
-    }
-
-    public List<Event> getEventList() {
-        return eventList;
     }
 
     public String getId() {
@@ -110,23 +87,56 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public void exist(){
+
+    public boolean isExist() {
+        return exist;
+    }
+
+    public void setExist(boolean exist) {
+        this.exist = exist;
+    }
+
+    public List<Expense> getExpenseList() {
+        return expenseList;
+    }
+
+    public void setExpenseList(List<Expense> expenseList) {
+        this.expenseList = expenseList;
+    }
+
+    public List<Event> getEventAdminList() {
+        return eventAdminList;
+    }
+
+    public void setEventAdminList(List<Event> eventAdminList) {
+        this.eventAdminList = eventAdminList;
+    }
+
+    public List<Event> getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(List<Event> eventList) {
+        this.eventList = eventList;
+    }
+
+    public void exist() {
         this.exist = true;
     }
-    
-    public void notExist(){
+
+    public void notExist() {
         this.exist = false;
     }
-    
-    public boolean doesExist(){
+
+    public boolean doesExist() {
         boolean result = false;
-        if(this.exist)
+        if (this.exist) {
             result = true;
+        }
         return result;
     }
-    
-    public void createId(){
+
+    public void createId() {
         this.id = UUID.randomUUID().toString();
     }
 

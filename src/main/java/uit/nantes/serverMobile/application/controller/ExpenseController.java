@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import uit.nantes.serverMobile.api.entities.Event;
 import uit.nantes.serverMobile.api.entities.Expense;
-import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.application.controller.util.JsonResponse;
 import uit.nantes.serverMobile.domain.EventService;
 import uit.nantes.serverMobile.domain.ExpenseService;
@@ -54,7 +52,7 @@ public class ExpenseController {
         return expenseService.findAllByEventId(id);
     }
     
-    @GetMapping(path = "/get/event/{id}")
+    @GetMapping(path = "/get/eventuser/{idUser}/{idEvent}")
     public @ResponseBody
     List<Expense> getAllExpenseByUserAndEvent(@PathVariable String idUser, @PathVariable String idEvent) throws JSONException {
         return expenseService.findAllByUserAndEvent(idUser, idEvent);
@@ -71,11 +69,8 @@ public class ExpenseController {
     @PostMapping(path = "/add")
     public @ResponseBody
     String addUser(@RequestBody Expense expense) throws JSONException {
-        expense.createId();
-        User user = userService.findById(expense.getIdUser());
-        Event event = eventService.findById(expense.getIdEvent());
-        
-        Boolean result = expenseService.insert(expense, user, event);
+        expense.createId();  
+        Boolean result = expenseService.insert(expense);
 
         return JsonResponse.insertJsonResponse(result).toString();
     }

@@ -88,9 +88,9 @@ public class ExpenseService {
         return result;
     }
 
-    public boolean insert(Expense expense, User user, Event event) {
+    public boolean insert(Expense expense) {
         boolean result = false;
-        if(ExpenseCheck.checkInsert(expense, user, event)){
+        if(ExpenseCheck.checkInsert(expense)){
             expenseRepository.save(expense);
             result = true;
         }

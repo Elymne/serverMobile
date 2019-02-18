@@ -42,8 +42,9 @@ public class Event implements Serializable {
 
     @ManyToMany(cascade = {
         CascadeType.MERGE,
-        CascadeType.PERSIST},
-            fetch = FetchType.LAZY)
+        CascadeType.PERSIST,
+        CascadeType.ALL},
+            fetch = FetchType.EAGER)
     @JoinTable(name = "user_event",
             joinColumns = {
                 @JoinColumn(name = "event_id")},
@@ -59,26 +60,6 @@ public class Event implements Serializable {
         super();
     }
 
-    public List<Expense> getExpenseList() {
-        return expenseList;
-    }
-
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setExpenseList(List<Expense> expenseList) {
-        this.expenseList = expenseList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public String getId() {
         return id;
     }
@@ -89,14 +70,6 @@ public class Event implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
     }
 
     public LocalDate getDate() {
@@ -115,8 +88,44 @@ public class Event implements Serializable {
         this.active = active;
     }
 
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public boolean isExist() {
+        return exist;
+    }
+
+    public void setExist(boolean exist) {
+        this.exist = exist;
+    }
+
+    public List<Expense> getExpenseList() {
+        return expenseList;
+    }
+
+    public void setExpenseList(List<Expense> expenseList) {
+        this.expenseList = expenseList;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
     public User getUser() {
         return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void exist() {

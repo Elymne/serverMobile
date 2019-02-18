@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 /**
  * @author Djurdjevic Sacha
@@ -23,10 +24,11 @@ public class Expense implements Serializable {
 
     private double amount;
     private String wording;
+    @Transient
     private boolean exist;
 
-    private String idEvent;
-    private String idUser;
+    private Event idEvent;
+    private User idUser;
 
     @ManyToOne
     @JsonIgnore
@@ -40,20 +42,8 @@ public class Expense implements Serializable {
         super();
     }
 
-    public Event getEvent() {
-        return event;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
+    public String getId() {
+        return id;
     }
 
     public double getAmount() {
@@ -72,8 +62,44 @@ public class Expense implements Serializable {
         this.wording = wording;
     }
 
-    public String getId() {
-        return this.id;
+    public boolean isExist() {
+        return exist;
+    }
+
+    public void setExist(boolean exist) {
+        this.exist = exist;
+    }
+
+    public Event getIdEvent() {
+        return idEvent;
+    }
+
+    public void setIdEvent(Event idEvent) {
+        this.idEvent = idEvent;
+    }
+
+    public User getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(User idUser) {
+        this.idUser = idUser;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void exist() {
@@ -94,14 +120,6 @@ public class Expense implements Serializable {
 
     public void createId() {
         this.id = UUID.randomUUID().toString();
-    }
-
-    public String getIdEvent() {
-        return idEvent;
-    }
-
-    public String getIdUser() {
-        return idUser;
     }
 
     @Override

@@ -16,8 +16,7 @@ public class EventCheck {
     public static boolean checkInsert(Event event) {
         boolean result = true;
         if(event.getTitle().isBlank()
-                || event.getPlace().isBlank()
-                || !event.getUser().doesExist()){
+                || event.getPlace().isBlank()){
             result = false;
         }
         return result;

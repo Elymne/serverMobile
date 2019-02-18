@@ -18,11 +18,11 @@ public class ExpenseCheck {
         return result;
     }
 
-    public static boolean checkInsert(Expense expense, User user, Event event) {
+    public static boolean checkInsert(Expense expense) {
         boolean result = true;
         if (expense.getAmount() < 0
                 || expense.getWording().isBlank()
-                || check(user,event)) {
+                || check(expense.getUser(),expense.getEvent())) {
             result = false;
         }
         return result;

@@ -45,11 +45,7 @@ public class EventService {
 
     public boolean insert(Event event) {
         boolean result = false;
-        if (!this.eventRepository.existsById(event.getTitle())
-                && EventCheck.checkInsert(event)) {
-            if (event.getDate().equals(null)) {
-                event.setDate(LocalDate.now().plusDays(1));
-            }
+        if (EventCheck.checkInsert(event)) {
             eventRepository.save(event);
             result = true;
         }
