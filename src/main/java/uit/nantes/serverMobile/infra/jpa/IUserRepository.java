@@ -7,5 +7,5 @@ import uit.nantes.serverMobile.api.entities.User;
  * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
-public interface IUserRepository extends JpaRepository<User, String>{
+public interface IUserRepository extends JpaRepository<User, String> {
 }

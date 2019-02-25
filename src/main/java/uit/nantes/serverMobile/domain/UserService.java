@@ -1,7 +1,12 @@
 package uit.nantes.serverMobile.domain;
 
 import java.util.List;
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.api.pojo.UserPojo;
 import uit.nantes.serverMobile.domain.util.UserCheck;
@@ -11,7 +16,8 @@ import uit.nantes.serverMobile.infra.jpa.IUserRepository;
  * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
-public class UserService {
+@Service
+public class UserService implements UserDetailsService {
 
     @Autowired
     IUserRepository userRepository;
@@ -31,7 +37,7 @@ public class UserService {
     public User findByPseudo(String pseudo) {
         User result = new User();
         for (User user : userRepository.findAll()) {
-            if (user.getPseudo().equals(pseudo)) {
+            if (user.getUsername().equals(pseudo)) {
                 result = user;
                 break;
             }
@@ -55,7 +61,7 @@ public class UserService {
         if (userRepository.existsById(id)) {
             User user = userRepository.findById(id).get();
             if (UserCheck.checkUpdate(userPojo)) {
-                user.setPseudo(userPojo.getPseudo());
+                user.setUsername(userPojo.getPseudo());
                 user.setEmail(userPojo.getEmail());
                 user.setPassword(userPojo.getPassword());
                 userRepository.save(user);
@@ -71,7 +77,7 @@ public class UserService {
         if (UserCheck.checkInsert(userPojo)) {
             User user = new User();
             user.createId();
-            user.setPseudo(userPojo.getPseudo());
+            user.setUsername(userPojo.getPseudo());
             user.setEmail(userPojo.getEmail());
             user.setPassword(userPojo.getPassword());
             userRepository.save(user);
@@ -87,6 +93,13 @@ public class UserService {
             result = true;
         }
         return result;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String pseudo) throws UsernameNotFoundException {
+        Objects.requireNonNull(pseudo);
+        User user = this.findByPseudo(pseudo);
+        return user;
     }
 
 }

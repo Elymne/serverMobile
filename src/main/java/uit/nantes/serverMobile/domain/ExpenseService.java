@@ -3,6 +3,7 @@ package uit.nantes.serverMobile.domain;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import uit.nantes.serverMobile.api.entities.Expense;
 import uit.nantes.serverMobile.api.pojo.ExpensePojo;
 import uit.nantes.serverMobile.domain.util.ExpenseCheck;
@@ -14,6 +15,7 @@ import uit.nantes.serverMobile.infra.jpa.IUserRepository;
  * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
+@Service
 public class ExpenseService {
 
     @Autowired
