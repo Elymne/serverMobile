@@ -1,5 +1,6 @@
 package uit.nantes.serverMobile.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -16,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
+ * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
 @Entity
@@ -33,6 +35,7 @@ public class Event implements Serializable {
     private String place;
 
     @OneToMany(mappedBy = "event")
+    @JsonIgnore
     private List<Expense> expenseList;
 
     @ManyToMany(targetEntity = User.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)

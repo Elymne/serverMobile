@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 /**
+ * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
 @Entity
@@ -31,6 +32,7 @@ public class User implements Serializable {
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private List<Expense> expenseList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")

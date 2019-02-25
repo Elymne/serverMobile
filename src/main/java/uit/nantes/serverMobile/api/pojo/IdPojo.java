@@ -1,5 +1,9 @@
 package uit.nantes.serverMobile.api.pojo;
 
+/**
+ * @author Daniel Clemente Aguirre
+ * @author Djurdjevic Sacha
+ */
 public class IdPojo {
 
     private final String idObject;

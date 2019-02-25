@@ -2,7 +2,8 @@ package uit.nantes.serverMobile.api.entities;
 
 import java.util.List;
 
-/*
+/**
+ * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
 public class ExpenseManagement {

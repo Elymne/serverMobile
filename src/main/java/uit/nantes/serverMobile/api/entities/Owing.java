@@ -1,6 +1,7 @@
 package uit.nantes.serverMobile.api.entities;
 
 /**
+ * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
 public class Owing {

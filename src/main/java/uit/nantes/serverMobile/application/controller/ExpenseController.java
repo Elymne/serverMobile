@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import uit.nantes.serverMobile.api.entities.Expense;
+import uit.nantes.serverMobile.api.pojo.ExpensePojo;
 import uit.nantes.serverMobile.application.controller.util.JsonResponse;
 import uit.nantes.serverMobile.domain.EventService;
 import uit.nantes.serverMobile.domain.ExpenseService;
 import uit.nantes.serverMobile.domain.UserService;
 
 /**
+ * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
 @Controller
@@ -27,52 +29,56 @@ public class ExpenseController {
 
     @Autowired
     ExpenseService expenseService;
-    
+
     @Autowired
     UserService userService;
-    
+
     @Autowired
     EventService eventService;
+    
+    @GetMapping(path= "/getAll")
+    public @ResponseBody
+    List<Expense> getAll(){
+        return expenseService.findAll();
+    }
 
     @GetMapping(path = "/get/{id}")
     public @ResponseBody
     Expense getExpenseById(@PathVariable String id) throws JSONException {
         return expenseService.findById(id);
     }
-    
+
     @GetMapping(path = "/get/user/{id}")
     public @ResponseBody
     List<Expense> getAllExpenseByUser(@PathVariable String id) throws JSONException {
         return expenseService.findAllByUser(id);
     }
-    
+
     @GetMapping(path = "/get/event/{id}")
     public @ResponseBody
     List<Expense> getAllExpenseByEvent(@PathVariable String id) throws JSONException {
         return expenseService.findAllByEventId(id);
     }
-    
+
     @GetMapping(path = "/get/eventuser/{idUser}/{idEvent}")
     public @ResponseBody
-    List<Expense> getAllExpenseByUserAndEvent(@PathVariable String idUser, @PathVariable String idEvent) throws JSONException {
+    Expense getAllExpenseByUserAndEvent(@PathVariable String idUser, @PathVariable String idEvent) throws JSONException {
         return expenseService.findAllByUserAndEvent(idUser, idEvent);
-    }
-
-    @PutMapping(path = "/update/{id}")
-    public @ResponseBody
-    String update(@PathVariable String id, @RequestBody Expense expense) throws JSONException {
-        Boolean result = expenseService.update(id, expense);
-
-        return JsonResponse.updateJsonResponse(result).toString();
     }
 
     @PostMapping(path = "/add")
     public @ResponseBody
-    String addUser(@RequestBody Expense expense) throws JSONException {
-        expense.createId();  
-        Boolean result = expenseService.insert(expense);
-
+    String addUser(@RequestBody ExpensePojo expensePojo) throws JSONException {
+        Boolean result = expenseService.insert(expensePojo);
         return JsonResponse.insertJsonResponse(result).toString();
+    }
+
+    @PutMapping(path = "/update/{id}")
+    public @ResponseBody
+    String update(@PathVariable String id, @RequestBody ExpensePojo expensePojo) throws JSONException {
+        Boolean result = expenseService.update(id, expensePojo);
+
+        return JsonResponse.updateJsonResponse(result).toString();
     }
 
     @DeleteMapping(path = "/delete/{id}")

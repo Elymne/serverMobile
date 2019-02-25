@@ -1,16 +1,13 @@
 package uit.nantes.serverMobile.api.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.UUID;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 
 /**
+ * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
 @Entity
@@ -19,20 +16,15 @@ public class Expense implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String id;
 
     private double amount;
     private String wording;
-    @Transient
-    private boolean exist;
 
     @ManyToOne
-    @JsonIgnore
     private Event event;
 
     @ManyToOne
-    @JsonIgnore
     private User user;
 
     public Expense() {
@@ -59,14 +51,6 @@ public class Expense implements Serializable {
         this.wording = wording;
     }
 
-    public boolean isExist() {
-        return exist;
-    }
-
-    public void setExist(boolean exist) {
-        this.exist = exist;
-    }
-
     public Event getEvent() {
         return event;
     }
@@ -81,22 +65,6 @@ public class Expense implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public void exist() {
-        this.exist = true;
-    }
-
-    public void notExist() {
-        this.exist = false;
-    }
-
-    public boolean doesExist() {
-        boolean result = false;
-        if (this.exist) {
-            result = true;
-        }
-        return result;
     }
 
     public void createId() {

@@ -1,41 +1,28 @@
 package uit.nantes.serverMobile.domain.util;
 
-import uit.nantes.serverMobile.api.entities.Event;
-import uit.nantes.serverMobile.api.entities.Expense;
-import uit.nantes.serverMobile.api.entities.User;
+import uit.nantes.serverMobile.api.pojo.ExpensePojo;
 
 /**
+ * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
 public class ExpenseCheck {
 
-    public static boolean checkUpdate(Expense expense) {
+    public static boolean checkUpdate(ExpensePojo expensePojo) {
         boolean result = true;
-        if (expense.getAmount() < 0
-                || expense.getWording().isBlank()) {
+        if (expensePojo.getAmount() < 0
+                || expensePojo.getWording().isBlank()) {
             result = false;
         }
         return result;
     }
 
-    public static boolean checkInsert(Expense expense) {
+    public static boolean checkInsert(ExpensePojo expensePojo) {
         boolean result = true;
-        if (expense.getAmount() < 0
-                || expense.getWording().isBlank()
-                || check(expense.getUser(),expense.getEvent())) {
+        if (expensePojo.getAmount() < 0
+                || expensePojo.getWording().isBlank()) {
             result = false;
         }
         return result;
     }
-
-    private static boolean check(User user, Event event) {
-        boolean result = false;
-        for (User unUser : event.getUserList()) {
-            if (unUser.getId().equals(user.getId())) {
-                result = true;
-            }
-        }
-        return result;
-    }
-
 }

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
- * @author Elymne
+ * @author Daniel Clemente Aguirre
+ * @author Djurdjevic Sacha
  */
 @RestController()
 @CrossOrigin

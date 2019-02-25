@@ -2,6 +2,10 @@ package uit.nantes.serverMobile.domain.util;
 
 import uit.nantes.serverMobile.api.pojo.EventPojo;
 
+/**
+ * @author Daniel Clemente Aguirre
+ * @author Djurdjevic Sacha
+ */
 public class EventCheck {
 
     public static boolean checkUpdate(EventPojo eventPojo) {

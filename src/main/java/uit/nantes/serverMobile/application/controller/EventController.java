@@ -20,6 +20,10 @@ import uit.nantes.serverMobile.api.pojo.IdPojo;
 import uit.nantes.serverMobile.application.controller.util.JsonResponse;
 import uit.nantes.serverMobile.domain.EventService;
 
+/**
+ * @author Daniel Clemente Aguirre
+ * @author Djurdjevic Sacha
+ */
 @RestController
 @RequestMapping(value = "/api/evenement")
 public class EventController {

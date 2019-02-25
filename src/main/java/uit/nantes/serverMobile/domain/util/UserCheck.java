@@ -3,6 +3,7 @@ package uit.nantes.serverMobile.domain.util;
 import uit.nantes.serverMobile.api.pojo.UserPojo;
 
 /**
+ * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
 public class UserCheck {

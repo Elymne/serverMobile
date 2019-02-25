@@ -14,6 +14,10 @@ import uit.nantes.serverMobile.domain.util.EventCheck;
 import uit.nantes.serverMobile.infra.jpa.IEventRepository;
 import uit.nantes.serverMobile.infra.jpa.IUserRepository;
 
+/**
+ * @author Daniel Clemente Aguirre
+ * @author Djurdjevic Sacha
+ */
 @Service
 public class EventService {
 

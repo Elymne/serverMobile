@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
+ * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
 public class JsonResponse {

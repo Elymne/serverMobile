@@ -10,6 +10,7 @@ import uit.nantes.serverMobile.domain.ExpenseService;
 import uit.nantes.serverMobile.domain.UserService;
 
 /**
+ * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
 @Configuration

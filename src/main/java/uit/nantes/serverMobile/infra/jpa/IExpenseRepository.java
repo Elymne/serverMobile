@@ -4,7 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import uit.nantes.serverMobile.api.entities.Expense;
 
 /**
- * @author DJurdjevic Sacha
+ * @author Daniel Clemente Aguirre
+ * @author Djurdjevic Sacha
  */
 public interface IExpenseRepository extends JpaRepository<Expense, String> {
 }

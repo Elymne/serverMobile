@@ -8,6 +8,7 @@ import uit.nantes.serverMobile.domain.util.UserCheck;
 import uit.nantes.serverMobile.infra.jpa.IUserRepository;
 
 /**
+ * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
 public class UserService {

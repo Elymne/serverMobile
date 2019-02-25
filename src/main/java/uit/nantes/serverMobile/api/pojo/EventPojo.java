@@ -2,6 +2,10 @@ package uit.nantes.serverMobile.api.pojo;
 
 import java.time.LocalDate;
 
+/**
+ * @author Daniel Clemente Aguirre
+ * @author Djurdjevic Sacha
+ */
 public class EventPojo {
 
     private final String title;
