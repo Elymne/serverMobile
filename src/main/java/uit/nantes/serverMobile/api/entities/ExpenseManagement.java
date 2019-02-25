@@ -32,7 +32,7 @@ public class ExpenseManagement {
     private double getMaxExpenseByUser(String id) {
         double result = 0;
         result = this.event.getExpenseList().stream().filter((expense) 
-                -> (expense.getIdUser() == null ? id == null : expense.getIdUser().equals(id))).map((expense) 
+                -> (expense.getUser().getId() == null ? id == null : expense.getUser().getId().equals(id))).map((expense) 
                         -> expense.getAmount()).reduce(result, (accumulator, _item) -> accumulator + _item);
         return result;
     }

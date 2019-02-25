@@ -3,9 +3,7 @@ package uit.nantes.serverMobile.domain;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import uit.nantes.serverMobile.api.entities.Event;
 import uit.nantes.serverMobile.api.entities.Expense;
-import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.domain.util.ExpenseCheck;
 import uit.nantes.serverMobile.infra.jpa.IExpenseRepository;
 
@@ -63,7 +61,7 @@ public class ExpenseService {
         List<Expense> result = new ArrayList<>();
         for (Expense expense : expenseRepository.findAll()) {
             if (expense.getUser().getId().equals(idUser)
-                    && expense.getIdEvent().equals(idEvent)) {
+                    && expense.getEvent().getId().equals(idEvent)) {
                 result.add(expense);
             }
         }

@@ -27,9 +27,6 @@ public class Expense implements Serializable {
     @Transient
     private boolean exist;
 
-    private Event idEvent;
-    private User idUser;
-
     @ManyToOne
     @JsonIgnore
     private Event event;
@@ -68,22 +65,6 @@ public class Expense implements Serializable {
 
     public void setExist(boolean exist) {
         this.exist = exist;
-    }
-
-    public Event getIdEvent() {
-        return idEvent;
-    }
-
-    public void setIdEvent(Event idEvent) {
-        this.idEvent = idEvent;
-    }
-
-    public User getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
     }
 
     public Event getEvent() {
