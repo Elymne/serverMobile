@@ -1,11 +1,13 @@
 package uit.nantes.serverMobile.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uit.nantes.serverMobile.api.entities.Event;
+import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.api.pojo.EventPojo;
 import uit.nantes.serverMobile.api.pojo.IdPojo;
 import uit.nantes.serverMobile.domain.util.EventCheck;
@@ -38,6 +40,32 @@ public class EventService {
         for (Event event : eventRepository.findAll()) {
             if (event.getTitle().equals(title)) {
                 result = event;
+            }
+        }
+        return result;
+    }
+
+    public List<Event> findAllByUser(String idUser) {
+        List<Event> result = new ArrayList<>();
+        if (userRepository.existsById(idUser)) {
+            for (Event event : eventRepository.findAll()) {
+                for (User user : event.getUserList()) {
+                    if (user.getId().equals(idUser)) {
+                        result.add(event);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+    
+    public List<Event> findAllByUserCreator(String idUser) {
+        List<Event> result = new ArrayList<>();
+        if (userRepository.existsById(idUser)) {
+            for (Event event : eventRepository.findAll()) {
+                if(event.getUser().getId().equals(idUser)){
+                    result.add(event);
+                }
             }
         }
         return result;
