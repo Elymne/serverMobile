@@ -2,17 +2,20 @@ package uit.nantes.serverMobile.api.pojo;
 
 public class IdPojo {
 
-    private String id;
+    private final String idObject;
+    private final String typeObject;
 
-    public IdPojo(String id) {
-        this.id = id;
+    public IdPojo(String idObject, String typeObject) {
+        this.idObject = idObject;
+        this.typeObject = typeObject;
     }
 
-    public String getId() {
-        return id;
+    public String getIdObject() {
+        return idObject;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getTypeObject() {
+        return typeObject;
     }
+
 }

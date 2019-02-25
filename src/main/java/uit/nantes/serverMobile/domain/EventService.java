@@ -1,15 +1,16 @@
 package uit.nantes.serverMobile.domain;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uit.nantes.serverMobile.api.entities.Event;
-import uit.nantes.serverMobile.api.entities.User;
+import uit.nantes.serverMobile.api.pojo.EventPojo;
+import uit.nantes.serverMobile.api.pojo.IdPojo;
 import uit.nantes.serverMobile.domain.util.EventCheck;
 import uit.nantes.serverMobile.infra.jpa.IEventRepository;
+import uit.nantes.serverMobile.infra.jpa.IUserRepository;
 
 @Service
 public class EventService {
@@ -17,70 +18,83 @@ public class EventService {
     @Autowired
     IEventRepository eventRepository;
 
+    @Autowired
+    IUserRepository userRepository;
+
     public List<Event> findAll() {
         return eventRepository.findAll();
     }
 
     public Event findById(String id) {
         Event event = new Event();
-        event.notExist();
         if (eventRepository.existsById(id)) {
             event = eventRepository.findById(id).get();
-            event.exist();
         }
         return event;
     }
 
     public Event findByTitle(String title) {
         Event result = new Event();
-        result.notExist();
         for (Event event : eventRepository.findAll()) {
             if (event.getTitle().equals(title)) {
                 result = event;
-                result.exist();
             }
         }
         return result;
     }
 
-    public boolean insert(Event event) {
+    public boolean insert(EventPojo eventPojo) {
         boolean result = false;
-        if (EventCheck.checkInsert(event)) {
+        if (EventCheck.checkInsert(eventPojo)
+                && userRepository.existsById(eventPojo.getUserId())) {
+            Event event = new Event();
+            event.createId();
+            event.setActive(true);
+            event.setTitle(eventPojo.getTitle());
+            event.setDate(eventPojo.getDate());
+            event.setPlace(eventPojo.getPlace());
+            event.setUser(userRepository.findById(eventPojo.getUserId()).get());
+
             eventRepository.save(event);
             result = true;
         }
         return result;
     }
 
-    public boolean update(String id, Event event) {
+    public boolean update(String id, EventPojo eventPojo) {
         boolean result = false;
-        if (eventRepository.existsById(event.getId())) {
-            Event eventToUpdate = eventRepository.findById(id).get();
-            if (EventCheck.checkUpdate(event)) {
-                eventToUpdate = event;
-                eventRepository.save(eventToUpdate);
+        if (eventRepository.existsById(id)) {
+            Event event = eventRepository.findById(id).get();
+            if (EventCheck.checkUpdate(eventPojo)) {
+                event.setTitle(eventPojo.getTitle());
+                event.setDate(eventPojo.getDate());
+                event.setPlace(eventPojo.getPlace());
+                event.setUser(userRepository.findById(eventPojo.getUserId()).get());
+                eventRepository.save(event);
                 result = true;
             }
         }
         return result;
     }
 
-    public boolean addUser(String id, User user) {
+    public boolean addUser(String id, IdPojo idPojo) {
         boolean result = false;
-        if (eventRepository.existsById(id)) {
+        if (eventRepository.existsById(id)
+                && userRepository.existsById(idPojo.getIdObject())) {
             Event event = eventRepository.findById(id).get();
-            event.getUserList().add(user);
+            event.getUserList().add(userRepository.findById(idPojo.getIdObject()).get());
             eventRepository.save(event);
             result = true;
         }
         return result;
     }
 
-    public boolean removeUser(String id, User user) {
+    public boolean removeUser(String id, IdPojo idPojo) {
         boolean result = false;
-        if (eventRepository.existsById(id)) {
+        if (eventRepository.existsById(id)
+                && userRepository.existsById(idPojo.getIdObject())) {
             Event event = eventRepository.findById(id).get();
-            event.getUserList().remove(user);
+            event.getUserList().remove(userRepository.findById(idPojo.getIdObject()).get());
             eventRepository.save(event);
             result = true;
         }

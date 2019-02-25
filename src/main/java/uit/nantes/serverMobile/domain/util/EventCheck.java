@@ -1,22 +1,22 @@
 package uit.nantes.serverMobile.domain.util;
 
-import uit.nantes.serverMobile.api.entities.Event;
+import uit.nantes.serverMobile.api.pojo.EventPojo;
 
 public class EventCheck {
 
-    public static boolean checkUpdate(Event event) {
+    public static boolean checkUpdate(EventPojo eventPojo) {
         boolean result = true;
-        if(event.getTitle().isBlank()
-                || event.getPlace().isBlank()){
+        if(eventPojo.getTitle().isBlank()
+                || eventPojo.getPlace().isBlank()){
             result = false;
         }
         return result;
     }
 
-    public static boolean checkInsert(Event event) {
+    public static boolean checkInsert(EventPojo eventPojo) {
         boolean result = true;
-        if(event.getTitle().isBlank()
-                || event.getPlace().isBlank()){
+        if(eventPojo.getTitle().isBlank()
+                || eventPojo.getPlace().isBlank()){
             result = false;
         }
         return result;

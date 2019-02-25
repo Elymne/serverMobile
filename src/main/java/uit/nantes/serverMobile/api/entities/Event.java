@@ -1,6 +1,5 @@
 package uit.nantes.serverMobile.api.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -15,7 +14,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 /**
  * @author Djurdjevic Sacha
@@ -33,8 +31,6 @@ public class Event implements Serializable {
     private LocalDate date;
     private Boolean active;
     private String place;
-    @Transient
-    private boolean exist;
 
     @OneToMany(mappedBy = "event")
     private List<Expense> expenseList;
@@ -90,14 +86,6 @@ public class Event implements Serializable {
         this.place = place;
     }
 
-    public boolean isExist() {
-        return exist;
-    }
-
-    public void setExist(boolean exist) {
-        this.exist = exist;
-    }
-
     public List<Expense> getExpenseList() {
         return expenseList;
     }
@@ -120,22 +108,6 @@ public class Event implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public void exist() {
-        this.exist = true;
-    }
-
-    public void notExist() {
-        this.exist = false;
-    }
-
-    public boolean doExist() {
-        boolean result = false;
-        if (this.exist) {
-            result = true;
-        }
-        return result;
     }
 
     public void createId() {
