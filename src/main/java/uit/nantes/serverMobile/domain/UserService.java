@@ -1,11 +1,7 @@
 package uit.nantes.serverMobile.domain;
 
 import java.util.List;
-import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.api.pojo.UserPojo;
@@ -17,7 +13,7 @@ import uit.nantes.serverMobile.infra.jpa.IUserRepository;
  * @author Djurdjevic Sacha
  */
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
 
     @Autowired
     IUserRepository userRepository;
@@ -93,13 +89,6 @@ public class UserService implements UserDetailsService {
             result = true;
         }
         return result;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String pseudo) throws UsernameNotFoundException {
-        Objects.requireNonNull(pseudo);
-        User user = this.findByPseudo(pseudo);
-        return user;
     }
 
 }

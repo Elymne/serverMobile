@@ -2,7 +2,6 @@ package uit.nantes.serverMobile.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.CascadeType;
@@ -12,15 +11,13 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
 @Entity
-public class User implements Serializable, UserDetails {
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -103,38 +100,12 @@ public class User implements Serializable, UserDetails {
         return "User{" + "id=" + id + ", speudo=" + username + ", email=" + email + ", password=" + password + '}';
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.username;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
+    public String getUsername() {
+        return username;
     }
 
 }
