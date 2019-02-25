@@ -11,7 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 /**
  * @author Djurdjevic Sacha
@@ -30,8 +29,6 @@ public class User implements Serializable {
     @Column(unique = true, nullable = false)
     private String email;
     private String password;
-    @Transient
-    private boolean exist;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Expense> expenseList;
@@ -76,14 +73,6 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public boolean isExist() {
-        return exist;
-    }
-
-    public void setExist(boolean exist) {
-        this.exist = exist;
-    }
-
     public List<Expense> getExpenseList() {
         return expenseList;
     }
@@ -106,22 +95,6 @@ public class User implements Serializable {
 
     public void setEventList(List<Event> eventList) {
         this.eventList = eventList;
-    }
-
-    public void exist() {
-        this.exist = true;
-    }
-
-    public void notExist() {
-        this.exist = false;
-    }
-
-    public boolean doesExist() {
-        boolean result = false;
-        if (this.exist) {
-            result = true;
-        }
-        return result;
     }
 
     public void createId() {

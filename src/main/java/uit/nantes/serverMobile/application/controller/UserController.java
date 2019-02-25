@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import uit.nantes.serverMobile.api.entities.User;
+import uit.nantes.serverMobile.api.pojo.UserPojo;
 import uit.nantes.serverMobile.application.controller.util.JsonResponse;
 import uit.nantes.serverMobile.domain.UserService;
 
@@ -52,15 +53,15 @@ public class UserController {
 
     @PutMapping(path = "/update/{id}")
     public @ResponseBody
-    String update(@PathVariable String id, @RequestBody User user) throws JSONException {
-        Boolean result = userService.update(id, user);  
+    String update(@PathVariable String id, @RequestBody UserPojo userPojo) throws JSONException {
+        Boolean result = userService.update(id, userPojo);  
         return JsonResponse.updateJsonResponse(result).toString();
     }
 
     @PostMapping(path = "/add")
     public @ResponseBody
-    String addUser(@RequestBody User user) throws JSONException {
-        Boolean result = userService.insert(user);
+    String addUser(@RequestBody UserPojo userPojo) throws JSONException {
+        Boolean result = userService.insert(userPojo);
         return JsonResponse.insertJsonResponse(result).toString();
     }
     
