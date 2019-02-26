@@ -1,35 +1,40 @@
 package uit.nantes.serverMobile.domain;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import uit.nantes.serverMobile.api.entities.User;
+import uit.nantes.serverMobile.api.pojo.UserPojo;
 import uit.nantes.serverMobile.domain.util.UserCheck;
 import uit.nantes.serverMobile.infra.jpa.IUserRepository;
 
 /**
+ * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
+@Service
 public class UserService {
 
     @Autowired
     IUserRepository userRepository;
 
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
     public User findById(String id) {
         User result = new User();
-        result.notExist();
         if (userRepository.existsById(id)) {
             result = userRepository.findById(id).get();
-            result.exist();
         }
         return result;
     }
 
     public User findByPseudo(String pseudo) {
         User result = new User();
-        result.notExist();
         for (User user : userRepository.findAll()) {
-            if (user.getPseudo().equals(pseudo)) {
+            if (user.getUsername().equals(pseudo)) {
                 result = user;
-                result.exist();
                 break;
             }
         }
@@ -38,26 +43,24 @@ public class UserService {
 
     public User findByEmail(String email) {
         User result = new User();
-        result.notExist();
         for (User user : userRepository.findAll()) {
             if (user.getEmail().equals(email)) {
                 result = user;
-                result.exist();
                 break;
             }
         }
         return result;
     }
 
-    public boolean update(String id, User user) {
+    public boolean update(String id, UserPojo userPojo) {
         boolean result = true;
         if (userRepository.existsById(id)) {
-            User userUpdate = userRepository.findById(id).get();
-            if (UserCheck.checkUpdate(userUpdate)) {
-                userUpdate.setEmail(user.getEmail());
-                userUpdate.setPassword(user.getPassword());
-                userUpdate.setPseudo(user.getPseudo());
-                userRepository.save(userUpdate);
+            User user = userRepository.findById(id).get();
+            if (UserCheck.checkUpdate(userPojo)) {
+                user.setUsername(userPojo.getPseudo());
+                user.setEmail(userPojo.getEmail());
+                user.setPassword(userPojo.getPassword());
+                userRepository.save(user);
             } else {
                 result = false;
             }
@@ -65,15 +68,16 @@ public class UserService {
         return result;
     }
 
-    public boolean insert(User user) {
+    public boolean insert(UserPojo userPojo) {
         boolean result = false;
-        boolean pseudo = !this.findByPseudo(user.getPseudo()).doesExist();
-        boolean email = !this.findByEmail(user.getEmail()).doesExist();
-        if (pseudo && email) {
-            if (UserCheck.checkInsert(user)) {
-                userRepository.save(user);
-                result = true;
-            }
+        if (UserCheck.checkInsert(userPojo)) {
+            User user = new User();
+            user.createId();
+            user.setUsername(userPojo.getPseudo());
+            user.setEmail(userPojo.getEmail());
+            user.setPassword(userPojo.getPassword());
+            userRepository.save(user);
+            result = true;
         }
         return result;
     }

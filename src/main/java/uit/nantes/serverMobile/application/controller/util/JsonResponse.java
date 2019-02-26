@@ -2,12 +2,18 @@ package uit.nantes.serverMobile.application.controller.util;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import uit.nantes.serverMobile.api.entities.User;
 
 /**
- * @author Elymne
+ * @author Daniel Clemente Aguirre
+ * @author Djurdjevic Sacha
  */
 public class JsonResponse {
+    
+    final static String ADD_USER_OK_MESSAGE = "L'utilisateur a été ajouté à l'évènenement";
+    final static String ADD_USER_ERROR_MESSAGE = "L'utilisateur n'a pas été ajouté à l'évènement";
+    
+    final static String REMOVE_USER_OK_MESSAGE = "L'utilisateur a été retiré de l'évènement";
+    final static String REMOVE_USER_ERROR_MESSAGE = "L'utilisateur n'a pas été retiré de l'évènement";
     
     final static String UPDATE_ERROR_MESSAGE = "Les valeurs n'ont pas étés modifiés";
     final static String UPDATE_OK_MESSAGE = "Les valeurs ont bien étés changés)";
@@ -17,21 +23,6 @@ public class JsonResponse {
     
     final static String DELETE_ERROR_MESSAGE = "Suppression non effectué";
     final static String DELETE_OK_MESSAGE = "Suppression effectué";
-
-    public static JSONObject getJsonUserResponse(User user) throws JSONException {
-        JSONObject response = new JSONObject();
-        if (user.doesExist()) {
-            response.put("ok", true);
-            response.put("id", user.getId());
-            response.put("pseudo", user.getPseudo());
-            response.put("password", user.getPassword());
-            response.put("email", user.getEmail());
-        } else {
-            response.put("ok", false);
-            response.put("message", "user non existant");
-        }
-        return response;
-    }
     
     public static JSONObject insertJsonResponse(boolean value) throws JSONException{
         JSONObject response = new JSONObject();
@@ -70,6 +61,34 @@ public class JsonResponse {
         }else{
             response.put("ok", false);
             response.put("message", DELETE_ERROR_MESSAGE);
+        }
+        
+        return response;
+    }
+    
+    public static JSONObject addUserJsonResponse(boolean value) throws JSONException{
+        JSONObject response = new JSONObject();
+        
+        if(value){
+            response.put("ok", true);
+            response.put("message", ADD_USER_OK_MESSAGE);
+        }else{
+            response.put("ok", false);
+            response.put("message", ADD_USER_ERROR_MESSAGE);
+        }
+        
+        return response;
+    }
+    
+    public static JSONObject removeUserJsonResponse(boolean value) throws JSONException{
+        JSONObject response = new JSONObject();
+        
+        if(value){
+            response.put("ok", true);
+            response.put("message", REMOVE_USER_OK_MESSAGE);
+        }else{
+            response.put("ok", false);
+            response.put("message", REMOVE_USER_ERROR_MESSAGE);
         }
         
         return response;

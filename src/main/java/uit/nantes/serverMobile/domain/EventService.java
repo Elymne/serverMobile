@@ -7,49 +7,101 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uit.nantes.serverMobile.api.entities.Event;
+import uit.nantes.serverMobile.api.entities.User;
+import uit.nantes.serverMobile.api.pojo.EventPojo;
+import uit.nantes.serverMobile.api.pojo.IdPojo;
 import uit.nantes.serverMobile.domain.util.EventCheck;
 import uit.nantes.serverMobile.infra.jpa.IEventRepository;
+import uit.nantes.serverMobile.infra.jpa.IUserRepository;
 
+/**
+ * @author Daniel Clemente Aguirre
+ * @author Djurdjevic Sacha
+ */
 @Service
 public class EventService {
 
     @Autowired
     IEventRepository eventRepository;
 
+    @Autowired
+    IUserRepository userRepository;
+
     public List<Event> findAll() {
-        List<Event> events = new ArrayList<Event>();
-        eventRepository.findAll().forEach(events::add);
-        return events;
+        return eventRepository.findAll();
     }
 
     public Event findById(String id) {
         Event event = new Event();
-        event.notExist();
         if (eventRepository.existsById(id)) {
             event = eventRepository.findById(id).get();
-            event.exist();
         }
         return event;
     }
 
     public Event findByTitle(String title) {
         Event result = new Event();
-        result.notExist();
         for (Event event : eventRepository.findAll()) {
             if (event.getTitle().equals(title)) {
                 result = event;
-                result.exist();
-                break;
             }
         }
         return result;
     }
 
-    public boolean insert(Event event) {
+    public List<Event> findAllByUser(String idUser) {
+        List<Event> result = new ArrayList<>();
+        if (userRepository.existsById(idUser)) {
+            for (Event event : eventRepository.findAll()) {
+                for (User user : event.getUserList()) {
+                    if (user.getId().equals(idUser)) {
+                        result.add(event);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+    
+    public List<Event> findAllByUserCreator(String idUser) {
+        List<Event> result = new ArrayList<>();
+        if (userRepository.existsById(idUser)) {
+            for (Event event : eventRepository.findAll()) {
+                if(event.getUser().getId().equals(idUser)){
+                    result.add(event);
+                }
+            }
+        }
+        return result;
+    }
+
+    public boolean insert(EventPojo eventPojo) {
         boolean result = false;
-        boolean title = !this.eventRepository.existsById(event.getTitle());
-        if (title) {
-            if (EventCheck.checkInsert(event)) {
+        if (EventCheck.checkInsert(eventPojo)
+                && userRepository.existsById(eventPojo.getUserId())) {
+            Event event = new Event();
+            event.createId();
+            event.setActive(true);
+            event.setTitle(eventPojo.getTitle());
+            event.setDate(eventPojo.getDate());
+            event.setPlace(eventPojo.getPlace());
+            event.setUser(userRepository.findById(eventPojo.getUserId()).get());
+
+            eventRepository.save(event);
+            result = true;
+        }
+        return result;
+    }
+
+    public boolean update(String id, EventPojo eventPojo) {
+        boolean result = false;
+        if (eventRepository.existsById(id)) {
+            Event event = eventRepository.findById(id).get();
+            if (EventCheck.checkUpdate(eventPojo)) {
+                event.setTitle(eventPojo.getTitle());
+                event.setDate(eventPojo.getDate());
+                event.setPlace(eventPojo.getPlace());
+                event.setUser(userRepository.findById(eventPojo.getUserId()).get());
                 eventRepository.save(event);
                 result = true;
             }
@@ -57,17 +109,26 @@ public class EventService {
         return result;
     }
 
-    public boolean update(String id, Event event) {
-        boolean result = true;
-        if (eventRepository.existsById(event.getId())) {
-            Event eventUpdate = eventRepository.findById(id).get();
-            if (EventCheck.checkUpdate(eventUpdate)) {
-                eventUpdate.setTitle(event.getTitle());
-                eventUpdate.setPlace(event.getPlace());
-                eventRepository.save(eventUpdate);
-            } else {
-                result = false;
-            }
+    public boolean addUser(String id, IdPojo idPojo) {
+        boolean result = false;
+        if (eventRepository.existsById(id)
+                && userRepository.existsById(idPojo.getIdObject())) {
+            Event event = eventRepository.findById(id).get();
+            event.getUserList().add(userRepository.findById(idPojo.getIdObject()).get());
+            eventRepository.save(event);
+            result = true;
+        }
+        return result;
+    }
+
+    public boolean removeUser(String id, IdPojo idPojo) {
+        boolean result = false;
+        if (eventRepository.existsById(id)
+                && userRepository.existsById(idPojo.getIdObject())) {
+            Event event = eventRepository.findById(id).get();
+            event.getUserList().remove(userRepository.findById(idPojo.getIdObject()).get());
+            eventRepository.save(event);
+            result = true;
         }
         return result;
     }

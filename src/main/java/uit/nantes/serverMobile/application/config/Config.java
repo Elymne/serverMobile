@@ -6,13 +6,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import uit.nantes.serverMobile.application.controller.util.JsonResponse;
 import uit.nantes.serverMobile.domain.EventService;
+import uit.nantes.serverMobile.domain.ExpenseManagerService;
+import uit.nantes.serverMobile.domain.ExpenseService;
 import uit.nantes.serverMobile.domain.UserService;
 
 /**
+ * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
 @Configuration
-@EnableJpaRepositories(basePackages="uit.nantes.serverMobile.infra.jpa")
+@EnableJpaRepositories(basePackages = "uit.nantes.serverMobile.infra.jpa")
 @EntityScan(basePackages = "uit.nantes.serverMobile.api.entities")
 public class Config {
 
@@ -20,14 +23,24 @@ public class Config {
     public UserService getUserService() {
         return new UserService();
     }
-    
+
     @Bean
-    public EventService getEventService(){
+    public EventService getEventService() {
         return new EventService();
+    }
+
+    @Bean
+    public ExpenseService getExpenseService() {
+        return new ExpenseService();
     }
     
     @Bean
-    public JsonResponse getToJson(){
+    public ExpenseManagerService getExpenseManagerService() {
+        return new ExpenseManagerService();
+    }
+
+    @Bean
+    public JsonResponse getToJson() {
         return new JsonResponse();
     }
 

@@ -1,10 +1,10 @@
 package uit.nantes.serverMobile.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,9 +15,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 /**
+ * @author Daniel Clemente Aguirre
  * @author Djurdjevic Sacha
  */
 @Entity
@@ -33,18 +33,13 @@ public class Event implements Serializable {
     private LocalDate date;
     private Boolean active;
     private String place;
-    @Transient
-    private boolean exist;
-    @Transient
-    private String pseudoUser;
+    private String description;
 
     @OneToMany(mappedBy = "event")
+    @JsonIgnore
     private List<Expense> expenseList;
 
-    @ManyToMany(cascade = {
-        CascadeType.MERGE,
-        CascadeType.PERSIST},
-            fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = User.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_event",
             joinColumns = {
                 @JoinColumn(name = "event_id")},
@@ -57,15 +52,6 @@ public class Event implements Serializable {
 
     public Event() {
         super();
-    }
-
-    public Event(String title, LocalDate date, String place, String pseudoUser) {
-        this.id = UUID.randomUUID().toString();
-        this.title = title;
-        this.pseudoUser = pseudoUser;
-        this.date = date;
-        this.active = true;
-        this.place = place;
     }
 
     public List<Expense> getExpenseList() {
@@ -100,14 +86,6 @@ public class Event implements Serializable {
         this.title = title;
     }
 
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
     public LocalDate getDate() {
         return date;
     }
@@ -124,32 +102,28 @@ public class Event implements Serializable {
         this.active = active;
     }
 
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
     public User getUser() {
         return user;
     }
-    
-    public String getPseudoUser(){
-        return pseudoUser;
-    }
 
-    public void exist() {
-        this.exist = true;
-    }
-
-    public void notExist() {
-        this.exist = false;
-    }
-
-    public boolean doExist() {
-        boolean result = false;
-        if (this.exist) {
-            result = true;
-        }
-        return result;
-    }
-    
-    public void createId(){
+    public void createId() {
         this.id = UUID.randomUUID().toString();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
