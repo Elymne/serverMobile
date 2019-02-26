@@ -11,6 +11,11 @@ import uit.nantes.serverMobile.api.entities.Expense;
  */
 public interface IExpenseRepository extends JpaRepository<Expense, String> {
     
-    @Query(value="", nativeQuery=true)
-    List<Expense> getAllMergeByUser();
+    @Query(value="SELECT DISTINCT user_id_user,sum(amount) FROM expense ex GROUP BY user_id_user", nativeQuery=true)
+    List<SpecialExpense> getAllMergeByUser();
+    
+    public static interface SpecialExpense {
+        
+        
+    }
 }
