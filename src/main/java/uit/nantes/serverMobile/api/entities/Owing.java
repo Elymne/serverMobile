@@ -30,4 +30,9 @@ public class Owing {
         this.owing = owing;
     }
 
+    @Override
+    public String toString() {
+        return "Owing{" + "id=" + id + ", owing=" + owing + '}';
+    }
+
 }
