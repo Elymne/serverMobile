@@ -11,7 +11,7 @@ public class ExpenseCheck {
     public static boolean checkUpdate(ExpensePojo expensePojo) {
         boolean result = true;
         if (expensePojo.getAmount() < 0
-                || expensePojo.getWording().isBlank()) {
+                || expensePojo.getWording().isEmpty()) {
             result = false;
         }
         return result;
@@ -20,7 +20,7 @@ public class ExpenseCheck {
     public static boolean checkInsert(ExpensePojo expensePojo) {
         boolean result = true;
         if (expensePojo.getAmount() < 0
-                || expensePojo.getWording().isBlank()) {
+                || expensePojo.getWording().isEmpty()) {
             result = false;
         }
         return result;
