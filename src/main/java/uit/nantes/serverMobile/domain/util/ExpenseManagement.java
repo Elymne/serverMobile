@@ -2,8 +2,8 @@ package uit.nantes.serverMobile.domain.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import uit.nantes.serverMobile.api.entities.Expense;
 import uit.nantes.serverMobile.api.entities.Owing;
+import uit.nantes.serverMobile.infra.jpa.pojo.ISpecialExpense;
 
 /**
  * @author Daniel Clemente Aguirre
@@ -11,19 +11,19 @@ import uit.nantes.serverMobile.api.entities.Owing;
  */
 public class ExpenseManagement {
     
-    public static double getAverageExpense(List<Expense> expenseList){
+    public static double getAverageExpense(List<ISpecialExpense> specialExpenseList){
         double result = 0;
-        for(Expense expense : expenseList){
-            result += expense.getAmount();
+        for(ISpecialExpense specialExpense : specialExpenseList){
+            result += specialExpense.getTotal();
         }
-        return result/expenseList.size();
+        return result/specialExpenseList.size();
     }
     
-    public static List<Owing> transformExpenseList(List<Expense> expenseList){
+    public static List<Owing> transformExpenseList(List<ISpecialExpense> specialExpenseList){
         Owing owing;
         List<Owing> result = new ArrayList<>();
-        for(Expense expense : expenseList){
-            owing = new Owing(expense.getUser().getId(), expense.getAmount());
+        for(ISpecialExpense specialExpense : specialExpenseList){
+            owing = new Owing(specialExpense.getUser_id_user(), specialExpense.getTotal());
             result.add(owing);
         }
         return result;
@@ -75,10 +75,10 @@ public class ExpenseManagement {
         return result;
     }
 
-    public static Owing getOwingUser(Expense expenseUser, List<Owing> owingList){
+    public static Owing getOwingUser(String idUser, List<Owing> owingList){
         Owing result = null;
         for(Owing owing : owingList){
-            if(owing.getId().equals(expenseUser.getUser().getId())){
+            if(owing.getId().equals(idUser)){
                 result = owing;
                 break;
             }

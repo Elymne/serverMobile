@@ -2,9 +2,9 @@ package uit.nantes.serverMobile.domain;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
-import uit.nantes.serverMobile.api.entities.Expense;
 import uit.nantes.serverMobile.domain.util.ExpenseManagement;
 import uit.nantes.serverMobile.api.entities.Owing;
+import uit.nantes.serverMobile.infra.jpa.pojo.ISpecialExpense;
 
 /**
  * @author Daniel Clemente Aguirre
@@ -12,22 +12,31 @@ import uit.nantes.serverMobile.api.entities.Owing;
  */
 @Service
 public class ExpenseManagerService {
-    /*
 
-    public List<Owing> getOwing(String idUser, List<Expense> expenseList) {
+    public List<Owing> getDetailOwing(String idUser, List<ISpecialExpense> specialExpenseList) {
         List<Owing> result;
         List<Owing> listOwing;
-        double averageExpense = ExpenseManagement.getAverageExpense(expenseList);
+        double averageExpense = ExpenseManagement.getAverageExpense(specialExpenseList);
 
-        listOwing = ExpenseManagement.transformExpenseList(expenseList);
+        listOwing = ExpenseManagement.transformExpenseList(specialExpenseList);
         listOwing = ExpenseManagement.transformOwingList(listOwing, averageExpense);
 
         double maxE = ExpenseManagement.getMaxE(listOwing);
-        Owing userOwing = ExpenseManagement.getOwingUser(expenseUser, listOwing);
+        Owing userOwing = ExpenseManagement.getOwingUser(idUser, listOwing);
 
         result = ExpenseManagement.makeOwingList(userOwing, listOwing, maxE);
         return result;
     }
-*/
+    
+    public Owing getOwing(String idUser, List<ISpecialExpense> specialExpenseList) {
+        List<Owing> listOwing;
+        double averageExpense = ExpenseManagement.getAverageExpense(specialExpenseList);
 
+        listOwing = ExpenseManagement.transformExpenseList(specialExpenseList);
+        listOwing = ExpenseManagement.transformOwingList(listOwing, averageExpense);
+
+        Owing userOwing = ExpenseManagement.getOwingUser(idUser, listOwing);
+
+        return userOwing;
+    }
 }
