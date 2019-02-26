@@ -67,12 +67,12 @@ public class ExpenseService {
         return result;
     }
 
-    public Expense findAllByUserAndEvent(String idUser, String idEvent) {
-        Expense result = null;
+    public List<Expense> findAllByUserAndEvent(String idUser, String idEvent) {
+        List<Expense> result = new ArrayList<>();
         for (Expense expense : expenseRepository.findAll()) {
             if (expense.getUser().getId().equals(idUser)
                     && expense.getEvent().getId().equals(idEvent)) {
-                result = expense;
+                result.add(expense);
             }
         }
         return result;

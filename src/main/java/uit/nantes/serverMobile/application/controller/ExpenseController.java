@@ -62,7 +62,7 @@ public class ExpenseController {
 
     @GetMapping(path = "/get/eventuser/{idUser}/{idEvent}")
     public @ResponseBody
-    Expense getAllExpenseByUserAndEvent(@PathVariable String idUser, @PathVariable String idEvent) throws JSONException {
+    List<Expense> getAllExpenseByUserAndEvent(@PathVariable String idUser, @PathVariable String idEvent) throws JSONException {
         return expenseService.findAllByUserAndEvent(idUser, idEvent);
     }
 

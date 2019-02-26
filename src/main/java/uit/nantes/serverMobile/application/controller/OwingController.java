@@ -30,9 +30,7 @@ public class OwingController {
     @GetMapping(path = "/get/{idUser}/{idEvent}")
     public @ResponseBody
     List<Owing> getOwing(@PathVariable String idUser, @PathVariable String idEvent) throws JSONException {
-        Expense expense = expenseService.findAllByUserAndEvent(idUser, idEvent);
         List<Expense> expenseList = expenseService.findAllByEventId(idEvent);
-        
-        return expenseManagerService.getOwing(expense, expenseList);
+        return expenseManagerService.getOwing(idUser, expenseList);
     }
 }

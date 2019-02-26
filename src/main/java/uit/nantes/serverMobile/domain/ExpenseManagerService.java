@@ -13,7 +13,7 @@ import uit.nantes.serverMobile.api.entities.Owing;
 @Service
 public class ExpenseManagerService {
 
-    public List<Owing> getOwing(Expense expenseUser, List<Expense> expenseList) {
+    public List<Owing> getOwing(String idUser, List<Expense> expenseList) {
         List<Owing> result;
         List<Owing> listOwing;
         double averageExpense = ExpenseManagement.getAverageExpense(expenseList);
