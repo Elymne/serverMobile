@@ -1,7 +1,9 @@
-package uit.nantes.serverMobile.api.entities;
+package uit.nantes.serverMobile.domain.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import uit.nantes.serverMobile.api.entities.Expense;
+import uit.nantes.serverMobile.api.entities.Owing;
 
 /**
  * @author Daniel Clemente Aguirre

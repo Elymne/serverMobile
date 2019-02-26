@@ -27,10 +27,12 @@ public class OwingController {
     @Autowired
     ExpenseManagerService expenseManagerService;
     
+    /*
     @GetMapping(path = "/get/{idUser}/{idEvent}")
     public @ResponseBody
     List<Owing> getOwing(@PathVariable String idUser, @PathVariable String idEvent) throws JSONException {
         List<Expense> expenseList = expenseService.findAllByEventId(idEvent);
         return expenseManagerService.getOwing(idUser, expenseList);
     }
+*/
 }

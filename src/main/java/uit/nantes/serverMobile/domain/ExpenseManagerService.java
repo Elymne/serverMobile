@@ -3,7 +3,7 @@ package uit.nantes.serverMobile.domain;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import uit.nantes.serverMobile.api.entities.Expense;
-import uit.nantes.serverMobile.api.entities.ExpenseManagement;
+import uit.nantes.serverMobile.domain.util.ExpenseManagement;
 import uit.nantes.serverMobile.api.entities.Owing;
 
 /**
@@ -12,6 +12,7 @@ import uit.nantes.serverMobile.api.entities.Owing;
  */
 @Service
 public class ExpenseManagerService {
+    /*
 
     public List<Owing> getOwing(String idUser, List<Expense> expenseList) {
         List<Owing> result;
@@ -27,5 +28,6 @@ public class ExpenseManagerService {
         result = ExpenseManagement.makeOwingList(userOwing, listOwing, maxE);
         return result;
     }
+*/
 
 }
