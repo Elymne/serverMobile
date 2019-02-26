@@ -94,4 +94,11 @@ public class JsonResponse {
         return response;
     }
 
+	public static Object totalJsonResponse(double result) throws JSONException{
+		JSONObject response = new JSONObject();
+		response.put("ok", true);
+		response.put("total", result);
+		return response;
+	}
+
 }

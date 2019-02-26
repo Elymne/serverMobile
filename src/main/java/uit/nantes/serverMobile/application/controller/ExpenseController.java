@@ -89,4 +89,11 @@ public class ExpenseController {
         return JsonResponse.deleteJsonResponse(result).toString();
     }
 
+    @GetMapping(path="/getExpenseTotal/{id}")
+    public @ResponseBody
+    String getExpenseTotalById(@PathVariable String id) throws JSONException{
+    	double result = expenseService.getTotal(id);
+    	
+    	return JsonResponse.totalJsonResponse(result).toString();
+    }
 }
