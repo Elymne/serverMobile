@@ -83,7 +83,7 @@ public class ExpenseController {
     public @ResponseBody
     String addUser(@RequestBody ExpensePojo expensePojo) throws JSONException {
         Boolean result = expenseService.insert(expensePojo);
-        return JsonResponse.insertJsonResponse(result).toString();
+        return JsonResponse.addExpenseJsonResponse(result).toString();
     }
 
     @PutMapping(path = "/update/{id}")
@@ -99,7 +99,7 @@ public class ExpenseController {
     String deleteUser(@PathVariable String id) throws JSONException {
         boolean result = expenseService.deleteById(id);
 
-        return JsonResponse.deleteJsonResponse(result).toString();
+        return JsonResponse.removeExpenseJsonResponse(result).toString();
     }
 
 }

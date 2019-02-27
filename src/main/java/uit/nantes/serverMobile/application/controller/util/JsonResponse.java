@@ -15,6 +15,12 @@ public class JsonResponse {
     final static String REMOVE_USER_OK_MESSAGE = "L'utilisateur a été retiré de l'évènement";
     final static String REMOVE_USER_ERROR_MESSAGE = "L'utilisateur n'a pas été retiré de l'évènement";
     
+    final static String ADD_EXPENSE_OK_MESSAGE = "La dépense a été ajouté";
+    final static String ADD_EXPENSE_ERROR_MESSAGE = "La dépense n'a pas été ajouté";
+    
+    final static String REMOVE_EXPENSE_OK_MESSAGE = "La dépense a été retiré de l'évènement";
+    final static String REMOVE_EXPENSE_ERROR_MESSAGE = "La dépense n'a pas été retiré de l'évènement";
+    
     final static String UPDATE_ERROR_MESSAGE = "Les valeurs n'ont pas étés modifiés";
     final static String UPDATE_OK_MESSAGE = "Les valeurs ont bien étés changés)";
     
@@ -89,6 +95,34 @@ public class JsonResponse {
         }else{
             response.put("ok", false);
             response.put("message", REMOVE_USER_ERROR_MESSAGE);
+        }
+        
+        return response;
+    }
+    
+    public static JSONObject addExpenseJsonResponse(boolean value) throws JSONException{
+        JSONObject response = new JSONObject();
+        
+        if(value){
+            response.put("ok", true);
+            response.put("message", ADD_EXPENSE_OK_MESSAGE);
+        }else{
+            response.put("ok", false);
+            response.put("message", ADD_EXPENSE_ERROR_MESSAGE);
+        }
+        
+        return response;
+    }
+    
+    public static JSONObject removeExpenseJsonResponse(boolean value) throws JSONException{
+        JSONObject response = new JSONObject();
+        
+        if(value){
+            response.put("ok", true);
+            response.put("message", REMOVE_EXPENSE_OK_MESSAGE);
+        }else{
+            response.put("ok", false);
+            response.put("message", REMOVE_EXPENSE_ERROR_MESSAGE);
         }
         
         return response;
