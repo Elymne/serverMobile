@@ -51,8 +51,14 @@ public class ExpenseController {
 
     @GetMapping(path = "/getAllGroupByUserFromEvent/{idEvent}")
     public @ResponseBody
-    List<ISpecialExpense> getAllGroupByUser(@PathVariable String idEvent) {
+    List<ISpecialExpense> getAllGroupByUserFromEvent(@PathVariable String idEvent) {
         return expenseService.findAllGroupByUserByEvent(idEvent);
+    }
+    
+    @GetMapping(path = "/getAllGroupByEvent/{idEvent}")
+    public @ResponseBody
+    List<ISpecialExpense> getAllGroupByEvent(@PathVariable String idEvent) {
+        return expenseService.findAllGroupByEvent(idEvent);
     }
 
     @GetMapping(path = "/get/{id}")
