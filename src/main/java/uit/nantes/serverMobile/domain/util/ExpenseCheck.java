@@ -8,6 +8,10 @@ import uit.nantes.serverMobile.api.pojo.ExpensePojo;
  */
 public class ExpenseCheck {
 
+    /*
+    *  @param expensePojo Pojo de la classe Expense
+    *  @return true si les informations de la dépense sont valides, false dans le cas contraire.
+    */
     public static boolean checkUpdate(ExpensePojo expensePojo) {
         boolean result = true;
         if (expensePojo.getAmount() < 0
@@ -17,6 +21,10 @@ public class ExpenseCheck {
         return result;
     }
 
+    /*
+    *  @param expensePojo Pojo de la classe Expense
+    *  @return true si les informations de la dépense sont valides, false dans le cas contraire.
+    */
     public static boolean checkInsert(ExpensePojo expensePojo) {
         boolean result = true;
         if (expensePojo.getAmount() < 0

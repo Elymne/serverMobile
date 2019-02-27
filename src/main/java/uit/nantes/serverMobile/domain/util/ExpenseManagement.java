@@ -13,7 +13,13 @@ import uit.nantes.serverMobile.infra.jpa.pojo.ISpecialExpense;
  * @author Djurdjevic Sacha
  */
 public class ExpenseManagement {
+    
+    static Owing owing;
 
+    /*
+    * @param List<ISpecialExpense> Une liste spécialisé contenant qu'un montant global d'un utilisateur et son id
+    * @return Retourne la moyenne des montants contenu dans la liste donnée en paramètre
+     */
     public static double getAverageExpense(List<ISpecialExpense> specialExpenseList) {
         double result = 0;
         for (ISpecialExpense specialExpense : specialExpenseList) {
@@ -22,27 +28,26 @@ public class ExpenseManagement {
         return result / specialExpenseList.size();
     }
 
-    public static List<Owing> transformExpenseList(List<ISpecialExpense> specialExpenseList) {
-        Owing owing;
+    /*
+    * @param List<ISpecialExpense> Une liste spécialisé contenant qu'un montant global d'un utilisateur et son id
+    * @param Double La moyenne des dépenses d'un évènement
+    * @return Une liste composé des dû de chaque utilisateur dans la liste rentré en paramètre
+     */
+    public static List<Owing> transformOwingList(List<ISpecialExpense> specialExpenseList, double averageExpense) {
         List<Owing> result = new ArrayList<>();
         for (ISpecialExpense specialExpense : specialExpenseList) {
-            owing = new Owing(specialExpense.getUser_id_user(), specialExpense.getTotal());
-            result.add(owing);
-        }
-        return result;
-    }
-
-    public static List<Owing> transformOwingList(List<Owing> listOwing, double averageExpense) {
-        List<Owing> result = new ArrayList<>();
-        for (Owing owing : listOwing) {
-            owing.setOwing(owing.getOwing() - averageExpense);
-            owing.setId(owing.getId());
+            owing.setOwing(specialExpense.getTotal() - averageExpense);
+            owing.setId(specialExpense.getUser_id_user());
             result.add(owing);
         }
         return result;
 
     }
 
+    /*
+    * @param List<Owing> La liste des dû de chaque utilisateur
+    * @return La quantité d'argent max qu'il reste à répartir enter chaque utilisateur
+    */
     public static double getMaxE(List<Owing> listOwing) {
         double result = 0;
         for (Owing owing : listOwing) {
@@ -53,6 +58,13 @@ public class ExpenseManagement {
         return result;
     }
 
+    /*
+    * @param Owing Le dû d'un utilisateur
+    * @param List<Owing> La liste des dû de tous les utilisateurs d'un évènement
+    * @param double La quantité d'argent maximum à équilibrer entre tous les utilisateurs
+    * @return Une liste de dû transformé pour afficher ce qu'un utilisateur doit en somme d'argent à d'autre utilisateur
+    * Si les données sont négative
+    */
     public static List<Owing> makeOwingList(Owing owingUser, List<Owing> owingList, double maxE) {
         List<Owing> result = new ArrayList<>();
         Owing owingToAdd;

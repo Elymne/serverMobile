@@ -93,8 +93,12 @@ public class EventService {
             event.setDate(eventPojo.getDate());
             event.setPlace(eventPojo.getPlace());
             event.setUser(userRepository.findById(eventPojo.getUserId()).get());
+            
+            Expense expense = ExpenseManagement.createExpenseByCreating(userRepository.findById(eventPojo.getUserId()).get(),
+                    event);
 
             eventRepository.save(event);
+            expenseRepository.save(expense);
             result = true;
         }
         return result;

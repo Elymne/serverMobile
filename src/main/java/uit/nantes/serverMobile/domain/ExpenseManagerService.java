@@ -17,13 +17,9 @@ public class ExpenseManagerService {
         List<Owing> result;
         List<Owing> listOwing;
         double averageExpense = ExpenseManagement.getAverageExpense(specialExpenseList);
-
-        listOwing = ExpenseManagement.transformExpenseList(specialExpenseList);
-        listOwing = ExpenseManagement.transformOwingList(listOwing, averageExpense);
-
+        listOwing = ExpenseManagement.transformOwingList(specialExpenseList, averageExpense);
         double maxE = ExpenseManagement.getMaxE(listOwing);
         Owing userOwing = ExpenseManagement.getOwingUser(idUser, listOwing);
-
         result = ExpenseManagement.makeOwingList(userOwing, listOwing, maxE);
         return result;
     }
@@ -31,12 +27,8 @@ public class ExpenseManagerService {
     public Owing getOwing(String idUser, List<ISpecialExpense> specialExpenseList) {
         List<Owing> listOwing;
         double averageExpense = ExpenseManagement.getAverageExpense(specialExpenseList);
-
-        listOwing = ExpenseManagement.transformExpenseList(specialExpenseList);
-        listOwing = ExpenseManagement.transformOwingList(listOwing, averageExpense);
-
+        listOwing = ExpenseManagement.transformOwingList(specialExpenseList, averageExpense);
         Owing userOwing = ExpenseManagement.getOwingUser(idUser, listOwing);
-
         return userOwing;
     }
 }
