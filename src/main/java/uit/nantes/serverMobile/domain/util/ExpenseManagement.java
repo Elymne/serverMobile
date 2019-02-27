@@ -13,8 +13,6 @@ import uit.nantes.serverMobile.infra.jpa.pojo.ISpecialExpense;
  * @author Djurdjevic Sacha
  */
 public class ExpenseManagement {
-    
-    static Owing owing;
 
     /*
     * @param List<ISpecialExpense> Une liste spécialisé contenant qu'un montant global d'un utilisateur et son id
@@ -34,10 +32,11 @@ public class ExpenseManagement {
     * @return Une liste composé des dû de chaque utilisateur dans la liste rentré en paramètre
      */
     public static List<Owing> transformOwingList(List<ISpecialExpense> specialExpenseList, double averageExpense) {
+        Owing owing = null;
         List<Owing> result = new ArrayList<>();
         for (ISpecialExpense specialExpense : specialExpenseList) {
-            owing.setOwing(specialExpense.getTotal() - averageExpense);
-            owing.setId(specialExpense.getUser_id_user());
+            owing = new Owing(specialExpense.getUser_id_user(),
+                    specialExpense.getTotal() - averageExpense);
             result.add(owing);
         }
         return result;
