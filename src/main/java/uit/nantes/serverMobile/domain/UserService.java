@@ -3,9 +3,11 @@ package uit.nantes.serverMobile.domain;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uit.nantes.serverMobile.api.entities.Event;
 import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.api.pojo.UserPojo;
 import uit.nantes.serverMobile.domain.util.UserCheck;
+import uit.nantes.serverMobile.infra.jpa.IEventRepository;
 import uit.nantes.serverMobile.infra.jpa.IUserRepository;
 
 /**
@@ -17,6 +19,9 @@ public class UserService {
 
     @Autowired
     IUserRepository userRepository;
+    
+    @Autowired
+    IEventRepository eventRepository;
 
     /*
     * @return La liste de tous les utilisateurs
@@ -111,9 +116,10 @@ public class UserService {
     * @param String id Un identifiant d'utilisateur
     * @return Un boolean à vrai si le delete s'est effectué, faux si elle a échoué
     */
-    public boolean delete(String id) {
+    public boolean delete(String id, List<Event> eventList) {
         boolean result = false;
-        if (userRepository.existsById(id)) {
+        if (userRepository.existsById(id)
+                && eventList.isEmpty()) {
             userRepository.deleteById(id);
             result = true;
         }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.api.pojo.UserPojo;
 import uit.nantes.serverMobile.application.controller.util.JsonResponse;
+import uit.nantes.serverMobile.domain.EventService;
 import uit.nantes.serverMobile.domain.UserService;
 
 /**
@@ -27,6 +28,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    
+    @Autowired
+    EventService eventService;
     
     @GetMapping(path = "/getAll")
     public @ResponseBody
@@ -69,7 +73,7 @@ public class UserController {
     @DeleteMapping(path = "/delete/{id}")
     public @ResponseBody
     String deleteUser(@PathVariable String id) throws JSONException{
-        boolean result = userService.delete(id); 
+        boolean result = userService.delete(id, eventService.findAllByUser(id)); 
         return JsonResponse.deleteJsonResponse(result).toString();
     }
 
