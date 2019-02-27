@@ -9,14 +9,14 @@ import org.json.JSONObject;
  */
 public class JsonResponse {
     
-    final static String ADD_USER_OK_MESSAGE = "L'utilisateur a été ajouté à l'évènenement";
-    final static String ADD_USER_ERROR_MESSAGE = "L'utilisateur n'a pas été ajouté à l'évènement";
+    final static String INSERT_USER_OK_MESSAGE = "L'utilisateur a été ajouté à l'évènenement";
+    final static String INSERT_USER_ERROR_MESSAGE = "L'utilisateur n'a pas été ajouté à l'évènement";
     
     final static String REMOVE_USER_OK_MESSAGE = "L'utilisateur a été retiré de l'évènement";
     final static String REMOVE_USER_ERROR_MESSAGE = "L'utilisateur n'a pas été retiré de l'évènement";
     
-    final static String ADD_EXPENSE_OK_MESSAGE = "La dépense a été ajouté";
-    final static String ADD_EXPENSE_ERROR_MESSAGE = "La dépense n'a pas été ajouté";
+    final static String INSERT_EXPENSE_OK_MESSAGE = "La dépense a été ajouté";
+    final static String INSERT_EXPENSE_ERROR_MESSAGE = "La dépense n'a pas été ajouté";
     
     final static String REMOVE_EXPENSE_OK_MESSAGE = "La dépense a été retiré de l'évènement";
     final static String REMOVE_EXPENSE_ERROR_MESSAGE = "La dépense n'a pas été retiré de l'évènement";
@@ -77,10 +77,10 @@ public class JsonResponse {
         
         if(value){
             response.put("ok", true);
-            response.put("message", ADD_USER_OK_MESSAGE);
+            response.put("message", INSERT_USER_OK_MESSAGE);
         }else{
             response.put("ok", false);
-            response.put("message", ADD_USER_ERROR_MESSAGE);
+            response.put("message", INSERT_USER_ERROR_MESSAGE);
         }
         
         return response;
@@ -105,10 +105,10 @@ public class JsonResponse {
         
         if(value){
             response.put("ok", true);
-            response.put("message", ADD_EXPENSE_OK_MESSAGE);
+            response.put("message", INSERT_EXPENSE_OK_MESSAGE);
         }else{
             response.put("ok", false);
-            response.put("message", ADD_EXPENSE_ERROR_MESSAGE);
+            response.put("message", INSERT_EXPENSE_ERROR_MESSAGE);
         }
         
         return response;
