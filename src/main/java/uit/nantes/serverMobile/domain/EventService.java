@@ -84,6 +84,7 @@ public class EventService {
     public boolean insert(EventPojo eventPojo) {
         boolean result = false;
         if (EventCheck.checkInsert(eventPojo)
+                && userRepository.existsById(eventPojo.getUserId())
                 && userRepository.existsById(eventPojo.getUserId())) {
             Event event = new Event();
             event.createId();
@@ -101,7 +102,8 @@ public class EventService {
 
     public boolean update(String id, EventPojo eventPojo) {
         boolean result = false;
-        if (eventRepository.existsById(id)) {
+        if (eventRepository.existsById(id) 
+                && userRepository.existsById(eventPojo.getUserId())) {
             Event event = eventRepository.findById(id).get();
             if (EventCheck.checkUpdate(eventPojo)) {
                 event.setTitle(eventPojo.getTitle());

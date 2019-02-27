@@ -29,8 +29,10 @@ public class ExpenseService {
     IEventRepository eventRepository;
 
     public List<Expense> findAll() {
-        List<Expense> expenseList = new ArrayList<Expense>();
-        expenseRepository.findAll().forEach(expenseList::add);
+        List<Expense> expenseList = new ArrayList<>();
+        expenseRepository.findAll().stream().filter((expense) -> (!expense.getWording().equals("none"))).forEachOrdered((expense) -> {
+            expenseList.add(expense);
+        });
         return expenseList;
     }
     
@@ -53,7 +55,8 @@ public class ExpenseService {
     public List<Expense> findAllByEventId(String id) {
         List<Expense> result = new ArrayList<>();
         for (Expense expense : expenseRepository.findAll()) {
-            if (expense.getEvent().getId().equals(id)) {
+            if (expense.getEvent().getId().equals(id)
+                    && !expense.getWording().equals("none")) {
                 result.add(expense);
             }
         }
@@ -66,7 +69,8 @@ public class ExpenseService {
     public List<Expense> findAllByUser(String id) {
         List<Expense> result = new ArrayList<>();
         for (Expense expense : expenseRepository.findAll()) {
-            if (expense.getUser().getId().equals(id)) {
+            if (expense.getUser().getId().equals(id)
+                    && !expense.getWording().equals("none")) {
                 result.add(expense);
             }
         }
@@ -80,7 +84,8 @@ public class ExpenseService {
         List<Expense> result = new ArrayList<>();
         for (Expense expense : expenseRepository.findAll()) {
             if (expense.getUser().getId().equals(idUser)
-                    && expense.getEvent().getId().equals(idEvent)) {
+                    && expense.getEvent().getId().equals(idEvent)
+                    && !expense.getWording().equals("none")) {
                 result.add(expense);
             }
         }

@@ -70,7 +70,8 @@ public class UserService {
 
     public boolean insert(UserPojo userPojo) {
         boolean result = false;
-        if (UserCheck.checkInsert(userPojo)) {
+        if (UserCheck.checkInsert(userPojo)
+                && findByPseudo(userPojo.getPseudo()).getId() == null) {
             User user = new User();
             user.createId();
             user.setUsername(userPojo.getPseudo());
