@@ -1,5 +1,6 @@
 package uit.nantes.serverMobile.domain.util;
 
+import java.time.LocalDate;
 import uit.nantes.serverMobile.api.pojo.EventPojo;
 
 /**
@@ -15,7 +16,8 @@ public class EventCheck {
     public static boolean checkUpdate(EventPojo eventPojo) {
         boolean result = true;
         if(eventPojo.getTitle().isEmpty()
-                || eventPojo.getPlace().isEmpty()){
+                || eventPojo.getPlace().isEmpty()
+                || eventPojo.getDate().isBefore(LocalDate.now())){
             result = false;
         }
         return result;
@@ -28,7 +30,8 @@ public class EventCheck {
     public static boolean checkInsert(EventPojo eventPojo) {
         boolean result = true;
         if(eventPojo.getTitle().isEmpty()
-                || eventPojo.getPlace().isEmpty()){
+                || eventPojo.getPlace().isEmpty()
+                || eventPojo.getDate().isBefore(LocalDate.now())){
             result = false;
         }
         return result;
