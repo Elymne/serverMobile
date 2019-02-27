@@ -36,22 +36,22 @@ public class ExpenseController {
 
     @Autowired
     EventService eventService;
-    
-    @GetMapping(path= "/getAll")
+
+    @GetMapping(path = "/getAll")
     public @ResponseBody
-    List<Expense> getAll(){
+    List<Expense> getAll() {
         return expenseService.findAll();
     }
-    
-    @GetMapping(path= "/getAllGroupByUser")
+
+    @GetMapping(path = "/getAllGroupByUser")
     public @ResponseBody
-    List<ISpecialExpense> getAllGroupByUser(){
+    List<ISpecialExpense> getAllGroupByUser() {
         return expenseService.findAllGroupByUser();
     }
-    
-    @GetMapping(path= "/getAllGroupByUserFromEvent/{idEvent}")
+
+    @GetMapping(path = "/getAllGroupByUserFromEvent/{idEvent}")
     public @ResponseBody
-    List<ISpecialExpense> getAllGroupByUser(@PathVariable String idEvent){
+    List<ISpecialExpense> getAllGroupByUser(@PathVariable String idEvent) {
         return expenseService.findAllGroupByUserFromEvent(idEvent);
     }
 
@@ -90,7 +90,6 @@ public class ExpenseController {
     public @ResponseBody
     String update(@PathVariable String id, @RequestBody ExpensePojo expensePojo) throws JSONException {
         Boolean result = expenseService.update(id, expensePojo);
-
         return JsonResponse.updateJsonResponse(result).toString();
     }
 
@@ -98,7 +97,6 @@ public class ExpenseController {
     public @ResponseBody
     String deleteUser(@PathVariable String id) throws JSONException {
         boolean result = expenseService.deleteById(id);
-
         return JsonResponse.removeExpenseJsonResponse(result).toString();
     }
 

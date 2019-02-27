@@ -79,13 +79,13 @@ Pour ajouter un evenement : (POST)
 Pour récupérer tous les evenements : (GET)
 	URL : http://localhost:8080/api/evenement/getAll
 
-Pour récupérer un utilisateur par son identifiant : (GET)
+Pour récupérer un evenement par son identifiant : (GET)
 	URL : http://localhost:8080/api/evenement/get/{identifiant}
 
-Pour récupérer un utilisateur par son titre : (GET)
+Pour récupérer un evenement par son titre : (GET)
 	URL : http://localhost:8080/api/evenement/get/title/{title}
 
-Pour modifier un utilisateur : (PUT)
+Pour modifier un evenement : (PUT)
 	URL : http://localhost:8080/api/evenement/update/{identifiant}
 
 	le body doit comporter :
@@ -103,10 +103,10 @@ Pour modifier un utilisateur : (PUT)
         	"user": "a14ed55f58f8854g4g44g4g"
 		}
 
-Pour supprimer un utilisateur : (DELETE)
+Pour supprimer un evenement : (DELETE)
 	URL : http://localhost:8080/api/evenement/delete/{identifiant}
 
-Pour ajouter un utilisateur : (PUT)
+Pour ajouter un utilisateur à l'evenement : (PUT)
 	URL : http://localhost:8080/api/evenement/addUser/{identifiant}
 
 	Le body doit comporter :
@@ -119,7 +119,7 @@ Pour ajouter un utilisateur : (PUT)
 				"typeObject":"user"
 			}
 
-Pour retirer un utilisateur : (PUT)
+Pour retirer un utilisateur à l'evenement : (PUT)
 	URL : http://localhost:8080/api/evenement/removeUser/{identitiant}
 
 	Le body doit comporter :

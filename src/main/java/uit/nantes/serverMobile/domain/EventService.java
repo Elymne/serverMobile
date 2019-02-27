@@ -29,7 +29,7 @@ public class EventService {
 
     @Autowired
     IUserRepository userRepository;
-    
+
     @Autowired
     IExpenseRepository expenseRepository;
 
@@ -68,12 +68,12 @@ public class EventService {
         }
         return result;
     }
-    
+
     public List<Event> findAllByUserCreator(String idUser) {
         List<Event> result = new ArrayList<>();
         if (userRepository.existsById(idUser)) {
             for (Event event : eventRepository.findAll()) {
-                if(event.getUser().getId().equals(idUser)){
+                if (event.getUser().getId().equals(idUser)) {
                     result.add(event);
                 }
             }
@@ -102,7 +102,7 @@ public class EventService {
 
     public boolean update(String id, EventPojo eventPojo) {
         boolean result = false;
-        if (eventRepository.existsById(id) 
+        if (eventRepository.existsById(id)
                 && userRepository.existsById(eventPojo.getUserId())) {
             Event event = eventRepository.findById(id).get();
             if (EventCheck.checkUpdate(eventPojo)) {
@@ -128,7 +128,7 @@ public class EventService {
                     event);
             eventRepository.save(event);
             expenseRepository.save(expense);
-            
+
             result = true;
         }
         return result;

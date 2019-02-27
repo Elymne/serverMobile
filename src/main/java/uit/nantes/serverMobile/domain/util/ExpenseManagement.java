@@ -13,19 +13,19 @@ import uit.nantes.serverMobile.infra.jpa.pojo.ISpecialExpense;
  * @author Djurdjevic Sacha
  */
 public class ExpenseManagement {
-    
-    public static double getAverageExpense(List<ISpecialExpense> specialExpenseList){
+
+    public static double getAverageExpense(List<ISpecialExpense> specialExpenseList) {
         double result = 0;
-        for(ISpecialExpense specialExpense : specialExpenseList){
+        for (ISpecialExpense specialExpense : specialExpenseList) {
             result += specialExpense.getTotal();
         }
-        return result/specialExpenseList.size();
+        return result / specialExpenseList.size();
     }
-    
-    public static List<Owing> transformExpenseList(List<ISpecialExpense> specialExpenseList){
+
+    public static List<Owing> transformExpenseList(List<ISpecialExpense> specialExpenseList) {
         Owing owing;
         List<Owing> result = new ArrayList<>();
-        for(ISpecialExpense specialExpense : specialExpenseList){
+        for (ISpecialExpense specialExpense : specialExpenseList) {
             owing = new Owing(specialExpense.getUser_id_user(), specialExpense.getTotal());
             result.add(owing);
         }
@@ -34,19 +34,19 @@ public class ExpenseManagement {
 
     public static List<Owing> transformOwingList(List<Owing> listOwing, double averageExpense) {
         List<Owing> result = new ArrayList<>();
-        for(Owing owing : listOwing){
+        for (Owing owing : listOwing) {
             owing.setOwing(owing.getOwing() - averageExpense);
             owing.setId(owing.getId());
             result.add(owing);
         }
         return result;
-        
+
     }
 
     public static double getMaxE(List<Owing> listOwing) {
         double result = 0;
-        for(Owing owing : listOwing){
-            if(owing.getOwing() > 0){
+        for (Owing owing : listOwing) {
+            if (owing.getOwing() > 0) {
                 result += owing.getOwing();
             }
         }
@@ -58,18 +58,18 @@ public class ExpenseManagement {
         Owing owingToAdd;
         owingList.remove(owingUser);
         boolean state = getState(owingUser);
-        
-        if(state){
-            for(Owing owing : owingList){
-                if(owing.getOwing() < 0){
+
+        if (state) {
+            for (Owing owing : owingList) {
+                if (owing.getOwing() < 0) {
                     owingToAdd = new Owing(owing.getId(), -sumOwing(owing.getOwing(), maxE, owingUser.getOwing()));
                     System.out.println(owingToAdd.toString());
                     result.add(owingToAdd);
                 }
             }
-        }else{
-            for(Owing owing : owingList){
-                if(owing.getOwing() > 0){
+        } else {
+            for (Owing owing : owingList) {
+                if (owing.getOwing() > 0) {
                     owingToAdd = new Owing(owing.getId(), sumOwing(owing.getOwing(), maxE, owingUser.getOwing()));
                     result.add(owingToAdd);
                 }
@@ -78,30 +78,30 @@ public class ExpenseManagement {
         return result;
     }
 
-    public static Owing getOwingUser(String idUser, List<Owing> owingList){
+    public static Owing getOwingUser(String idUser, List<Owing> owingList) {
         Owing result = null;
-        for(Owing owing : owingList){
-            if(owing.getId().equals(idUser)){
+        for (Owing owing : owingList) {
+            if (owing.getId().equals(idUser)) {
                 result = owing;
                 break;
             }
         }
         return result;
     }
-    
-    private static boolean getState(Owing owingUser){
+
+    private static boolean getState(Owing owingUser) {
         boolean result = true;
-        if(owingUser.getOwing() < 0){
+        if (owingUser.getOwing() < 0) {
             result = false;
         }
         return result;
     }
-    
-    public static double sumOwing(double owing, double maxE, double owingUser){
-        return (1/maxE * owing) * owingUser;
+
+    public static double sumOwing(double owing, double maxE, double owingUser) {
+        return (1 / maxE * owing) * owingUser;
     }
-    
-    public static Expense createExpenseByCreating(User user, Event event){
+
+    public static Expense createExpenseByCreating(User user, Event event) {
         Expense expense = new Expense();
         expense.createId();
         expense.setAmount(0);
@@ -109,8 +109,6 @@ public class ExpenseManagement {
         expense.setUser(user);
         expense.setEvent(event);
         return expense;
-            
     }
-    
 
 }

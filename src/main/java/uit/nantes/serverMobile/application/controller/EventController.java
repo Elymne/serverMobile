@@ -48,13 +48,13 @@ public class EventController {
     public Event getEventByTitle(@PathVariable("title") String title) {
         return eventService.findByTitle(title);
     }
-    
+
     @GetMapping(path = "/getAll/user/{id}")
     @ResponseBody
     public List<Event> getAllEventByUser(@PathVariable String id) {
         return eventService.findAllByUser(id);
     }
-    
+
     @GetMapping(path = "/getAll/userCreator/{id}")
     @ResponseBody
     public List<Event> getAllEventByUserCreator(@PathVariable String id) {
