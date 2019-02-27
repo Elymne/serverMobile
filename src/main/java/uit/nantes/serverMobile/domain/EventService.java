@@ -127,7 +127,7 @@ public class EventService {
             Event event = eventRepository.findById(id).get();
             if (EventCheck.checkUpdate(eventPojo)) {
                 event.setTitle(eventPojo.getTitle());
-                event.setDate(eventPojo.getDate());
+                event.setDate(eventPojo.getDate().plusDays(1));
                 event.setPlace(eventPojo.getPlace());
                 event.setDescription(eventPojo.getDescription());
                 event.setUser(userRepository.findById(eventPojo.getUserId()).get());
