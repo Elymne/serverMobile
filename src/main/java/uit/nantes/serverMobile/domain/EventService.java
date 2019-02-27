@@ -33,10 +33,17 @@ public class EventService {
     @Autowired
     IExpenseRepository expenseRepository;
 
+    /*
+    * @return La liste de tous les évènements
+    */
     public List<Event> findAll() {
         return eventRepository.findAll();
     }
 
+    /*
+    * @param String id Un identifiant d'évènement
+    * @return Un utilisateur correspondant à l'id rentré en paramètre
+    */
     public Event findById(String id) {
         Event event = new Event();
         if (eventRepository.existsById(id)) {
@@ -45,6 +52,10 @@ public class EventService {
         return event;
     }
 
+    /*
+    * @param String pseudo Un titre d'évènement
+    * @return Un évènement correspondant au titre rentré en paramètre
+    */
     public Event findByTitle(String title) {
         Event result = new Event();
         for (Event event : eventRepository.findAll()) {
@@ -55,6 +66,10 @@ public class EventService {
         return result;
     }
 
+    /*
+    * @param String idUser Un identifiant d'utilisateur
+    * @return Une liste d'évènement correspondant
+    */
     public List<Event> findAllByUser(String idUser) {
         List<Event> result = new ArrayList<>();
         if (userRepository.existsById(idUser)) {

@@ -35,11 +35,11 @@ public class Event implements Serializable {
     private String place;
     private String description;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", cascade = {CascadeType.ALL})
     @JsonIgnore
     private List<Expense> expenseList;
 
-    @ManyToMany(targetEntity = User.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinTable(name = "user_event",
             joinColumns = {
                 @JoinColumn(name = "event_id")},
