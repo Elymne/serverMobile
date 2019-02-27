@@ -13,9 +13,12 @@ import uit.nantes.serverMobile.infra.jpa.pojo.ISpecialExpense;
  */
 public interface IExpenseRepository extends JpaRepository<Expense, String> {
     
-    @Query(value="SELECT ex.user_id_user,sum(ex.amount) as total FROM expense ex GROUP BY ex.user_id_user ORDER BY ex.user_id_user", nativeQuery=true)
+    @Query(value="SELECT ex.user_id_user, ex.event_id_event, sum(ex.amount) as total FROM expense ex GROUP BY ex.user_id_user ORDER BY ex.user_id_user", nativeQuery=true)
     List<ISpecialExpense> getAllMergeByUser();
     
-    @Query(value="SELECT ex.user_id_user,sum(ex.amount) as total FROM expense ex WHERE ex.event_id_event = :idEvent GROUP BY ex.user_id_user ORDER BY ex.user_id_user", nativeQuery=true)
+    @Query(value="SELECT ex.user_id_user, ex.event_id_event, sum(ex.amount) as total FROM expense ex WHERE ex.event_id_event = :idEvent GROUP BY ex.user_id_user ORDER BY ex.user_id_user", nativeQuery=true)
     List<ISpecialExpense> getAllMergeByUserFromEvent(@Param("idEvent") String idEvent);
+    
+    @Query(value="SELECT ex.user_id_user, ex.event_id_event, sum(ex.amount) as total FROM expense ex WHERE ex.event_id_event = :idEvent GROUP BY ex.event_id_event ORDER BY ex.event_id_event", nativeQuery=true)
+    List<ISpecialExpense> getAllMergeByEvent(@Param("idEvent") String idEvent);
 }

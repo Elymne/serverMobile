@@ -43,6 +43,10 @@ public class ExpenseService {
     public List<ISpecialExpense> findAllGroupByUserByEvent(String idEvent){
         return expenseRepository.getAllMergeByUserFromEvent(idEvent);
     }
+    
+    public List<ISpecialExpense> findAllGroupByEvent(String idEvent){
+        return expenseRepository.getAllMergeByEvent(idEvent);
+    }
 
     public Expense findById(String id) {
         Expense result = new Expense();
