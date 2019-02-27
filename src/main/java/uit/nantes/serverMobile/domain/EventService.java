@@ -107,6 +107,7 @@ public class EventService {
             event.setTitle(eventPojo.getTitle());
             event.setDate(eventPojo.getDate());
             event.setPlace(eventPojo.getPlace());
+            event.setDescription(eventPojo.getDescription());
             event.setUser(userRepository.findById(eventPojo.getUserId()).get());
             
             Expense expense = ExpenseManagement.createExpenseByCreating(userRepository.findById(eventPojo.getUserId()).get(),
