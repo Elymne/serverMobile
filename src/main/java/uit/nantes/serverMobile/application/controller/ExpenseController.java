@@ -18,6 +18,7 @@ import uit.nantes.serverMobile.application.controller.util.JsonResponse;
 import uit.nantes.serverMobile.domain.EventService;
 import uit.nantes.serverMobile.domain.ExpenseService;
 import uit.nantes.serverMobile.domain.UserService;
+import uit.nantes.serverMobile.infra.jpa.pojo.ISpecialExpense;
 
 /**
  * @author Daniel Clemente Aguirre
@@ -41,6 +42,18 @@ public class ExpenseController {
     List<Expense> getAll(){
         return expenseService.findAll();
     }
+    
+    @GetMapping(path= "/getAllGroupByUser")
+    public @ResponseBody
+    List<ISpecialExpense> getAllGroupByUser(){
+        return expenseService.findAllGroupByUser();
+    }
+    
+    @GetMapping(path= "/getAllGroupByUserFromEvent/{idEvent}")
+    public @ResponseBody
+    List<ISpecialExpense> getAllGroupByUser(@PathVariable String idEvent){
+        return expenseService.findAllGroupByUserFromEvent(idEvent);
+    }
 
     @GetMapping(path = "/get/{id}")
     public @ResponseBody
@@ -62,7 +75,7 @@ public class ExpenseController {
 
     @GetMapping(path = "/get/eventuser/{idUser}/{idEvent}")
     public @ResponseBody
-    Expense getAllExpenseByUserAndEvent(@PathVariable String idUser, @PathVariable String idEvent) throws JSONException {
+    List<Expense> getAllExpenseByUserAndEvent(@PathVariable String idUser, @PathVariable String idEvent) throws JSONException {
         return expenseService.findAllByUserAndEvent(idUser, idEvent);
     }
 

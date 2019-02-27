@@ -33,6 +33,7 @@ public class Event implements Serializable {
     private LocalDate date;
     private Boolean active;
     private String place;
+    private String description;
 
     @OneToMany(mappedBy = "event")
     @JsonIgnore
@@ -51,6 +52,26 @@ public class Event implements Serializable {
 
     public Event() {
         super();
+    }
+
+    public List<Expense> getExpenseList() {
+        return expenseList;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setExpenseList(List<Expense> expenseList) {
+        this.expenseList = expenseList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getId() {
@@ -89,32 +110,20 @@ public class Event implements Serializable {
         this.place = place;
     }
 
-    public List<Expense> getExpenseList() {
-        return expenseList;
-    }
-
-    public void setExpenseList(List<Expense> expenseList) {
-        this.expenseList = expenseList;
-    }
-
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
-
     public User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public void createId() {
         this.id = UUID.randomUUID().toString();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

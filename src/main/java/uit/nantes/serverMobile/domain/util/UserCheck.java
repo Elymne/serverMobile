@@ -12,9 +12,9 @@ public class UserCheck {
 
     public static boolean checkUpdate(UserPojo userPojo) {
         boolean result = true;
-        if(userPojo.getPseudo().isBlank()
-                || userPojo.getEmail().isBlank()
-                || userPojo.getPassword().isBlank()
+        if(userPojo.getPseudo().isEmpty()
+                || userPojo.getEmail().isEmpty()
+                || userPojo.getPassword().isEmpty()
                 || userPojo.getPassword().length() < 5){
             result = false;
         }
@@ -23,9 +23,9 @@ public class UserCheck {
 
     public static boolean checkInsert(UserPojo userPojo) {
         boolean result = true;
-        if (userPojo.getPseudo().isBlank()
-                || userPojo.getEmail().isBlank()
-                || userPojo.getPassword().isBlank()
+        if (userPojo.getPseudo().isEmpty()
+                || userPojo.getEmail().isEmpty()
+                || userPojo.getPassword().isEmpty()
                 || !isValid(userPojo.getPassword())
                 || !isEmail(userPojo.getEmail())) {
             result = false;
@@ -67,7 +67,7 @@ public class UserCheck {
 		ch = Character.toUpperCase(ch);
 		return (ch >= 'A' && ch <= 'Z');
 	}
-
+ 
 	public static boolean isNumeric(char ch) {
 		return (ch >= '0' && ch <= '9');
 	}

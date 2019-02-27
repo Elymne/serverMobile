@@ -10,8 +10,8 @@ public class EventCheck {
 
     public static boolean checkUpdate(EventPojo eventPojo) {
         boolean result = true;
-        if(eventPojo.getTitle().isBlank()
-                || eventPojo.getPlace().isBlank()){
+        if(eventPojo.getTitle().isEmpty()
+                || eventPojo.getPlace().isEmpty()){
             result = false;
         }
         return result;
@@ -19,8 +19,8 @@ public class EventCheck {
 
     public static boolean checkInsert(EventPojo eventPojo) {
         boolean result = true;
-        if(eventPojo.getTitle().isBlank()
-                || eventPojo.getPlace().isBlank()){
+        if(eventPojo.getTitle().isEmpty()
+                || eventPojo.getPlace().isEmpty()){
             result = false;
         }
         return result;

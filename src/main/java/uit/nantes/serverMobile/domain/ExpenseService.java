@@ -10,6 +10,7 @@ import uit.nantes.serverMobile.domain.util.ExpenseCheck;
 import uit.nantes.serverMobile.infra.jpa.IEventRepository;
 import uit.nantes.serverMobile.infra.jpa.IExpenseRepository;
 import uit.nantes.serverMobile.infra.jpa.IUserRepository;
+import uit.nantes.serverMobile.infra.jpa.pojo.ISpecialExpense;
 
 /**
  * @author Daniel Clemente Aguirre
@@ -31,6 +32,14 @@ public class ExpenseService {
         List<Expense> expenseList = new ArrayList<Expense>();
         expenseRepository.findAll().forEach(expenseList::add);
         return expenseList;
+    }
+    
+    public List<ISpecialExpense> findAllGroupByUser(){
+        return expenseRepository.getAllMergeByUser();
+    }
+    
+    public List<ISpecialExpense> findAllGroupByUserFromEvent(String idEvent){
+        return expenseRepository.getAllMergeByUserFromEvent(idEvent);
     }
 
     public Expense findById(String id) {
@@ -67,12 +76,12 @@ public class ExpenseService {
         return result;
     }
 
-    public Expense findAllByUserAndEvent(String idUser, String idEvent) {
-        Expense result = null;
+    public List<Expense> findAllByUserAndEvent(String idUser, String idEvent) {
+        List<Expense> result = new ArrayList<>();
         for (Expense expense : expenseRepository.findAll()) {
             if (expense.getUser().getId().equals(idUser)
                     && expense.getEvent().getId().equals(idEvent)) {
-                result = expense;
+                result.add(expense);
             }
         }
         return result;

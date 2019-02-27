@@ -12,12 +12,14 @@ public class EventPojo {
     private final LocalDate date;
     private final String place;
     private final String userId;
+    private final String description;
 
-    public EventPojo(String title, LocalDate date, String place, String userId) {
+    public EventPojo(String title, LocalDate date, String place, String userId, String description) {
         this.title = title;
         this.date = date;
         this.place = place;
         this.userId = userId;
+        this.description = description;
     }
 
     public String getTitle() {
@@ -35,4 +37,9 @@ public class EventPojo {
     public String getUserId() {
         return userId;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
 }
