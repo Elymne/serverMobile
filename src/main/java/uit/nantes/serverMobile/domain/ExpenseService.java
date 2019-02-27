@@ -2,8 +2,11 @@ package uit.nantes.serverMobile.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import uit.nantes.serverMobile.api.entities.Expense;
 import uit.nantes.serverMobile.api.pojo.ExpensePojo;
 import uit.nantes.serverMobile.domain.util.ExpenseCheck;
@@ -141,4 +144,12 @@ public class ExpenseService {
         return result;
     }
 
+	public double getTotal(String id) {
+		double total = 0;
+		List<Expense> expenses = this.findAllByEvent(id);
+		List<Double> amounts = expenses != null ? expenses.stream().map(Expense::getAmount).collect(Collectors.toList())
+				: new ArrayList<Double>();
+		total = amounts.size() != 0 ? amounts.stream().mapToDouble(Double::doubleValue).sum() : 0;
+		return total;
+	}
 }
