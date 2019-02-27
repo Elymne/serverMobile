@@ -11,7 +11,7 @@ import uit.nantes.serverMobile.api.pojo.UserPojo;
 public class UserCheck {
 
     /*
-    *  @param userPojo UserPojo
+    *  @param UserPojo userPojo Un objet Pojo de la classe User
     *  @return true si les informations de l'utilisateur sont valides, false dans le cas contraire.
     */
     public static boolean checkUpdate(UserPojo userPojo) {
@@ -26,7 +26,7 @@ public class UserCheck {
     }
 
     /*
-    *  @param userPojo UserPojo
+    *  @param userPojo UserPojo Un objet Pojo de la classe User
     *  @return true si les informations de l'utilisateur sont valides et si l'email utilisé est valide, false dans le cas contraire.
     */
     public static boolean checkInsert(UserPojo userPojo) {

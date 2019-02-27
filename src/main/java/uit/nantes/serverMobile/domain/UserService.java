@@ -18,10 +18,17 @@ public class UserService {
     @Autowired
     IUserRepository userRepository;
 
+    /*
+    * @return La liste de tous les utilisateurs
+    */
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
+    /*
+    * @param String id Un identifiant d'utilisateur
+    * @return Un utilisateur correspondant à l'id rentré en paramètre
+    */
     public User findById(String id) {
         User result = new User();
         if (userRepository.existsById(id)) {
@@ -30,6 +37,10 @@ public class UserService {
         return result;
     }
 
+    /*
+    * @param String pseudo Un pseudo d'utilisateur
+    * @return Un utilisateur correspondant au pseudo rentré en paramètre
+    */
     public User findByPseudo(String pseudo) {
         User result = new User();
         for (User user : userRepository.findAll()) {
@@ -41,6 +52,10 @@ public class UserService {
         return result;
     }
 
+    /*
+    * @param String email Un email d'utilisateur
+    * @return Un utilisateur correspondant à l'email rentré en paramètre
+    */
     public User findByEmail(String email) {
         User result = new User();
         for (User user : userRepository.findAll()) {
@@ -52,6 +67,11 @@ public class UserService {
         return result;
     }
 
+    /*
+    * @param String id Un identifiant d'utilisateur
+    * @param UserPojo userPojo L'utilisateur modifié
+    * @return Un boolean à vrai si l'update s'est effectué, faux si elle a échoué
+    */
     public boolean update(String id, UserPojo userPojo) {
         boolean result = true;
         if (userRepository.existsById(id)) {
@@ -68,6 +88,10 @@ public class UserService {
         return result;
     }
 
+    /*
+    * @param UserPojo userPojo Un pojo de l'utilisateur à insérer
+    * @return Un boolean à vrai si l'insertion s'est effectué, faux si elle a échoué
+    */
     public boolean insert(UserPojo userPojo) {
         boolean result = false;
         if (UserCheck.checkInsert(userPojo)
@@ -83,6 +107,10 @@ public class UserService {
         return result;
     }
 
+    /*
+    * @param String id Un identifiant d'utilisateur
+    * @return Un boolean à vrai si le delete s'est effectué, faux si elle a échoué
+    */
     public boolean delete(String id) {
         boolean result = false;
         if (userRepository.existsById(id)) {

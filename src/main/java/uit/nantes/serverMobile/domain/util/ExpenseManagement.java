@@ -15,7 +15,7 @@ import uit.nantes.serverMobile.infra.jpa.pojo.ISpecialExpense;
 public class ExpenseManagement {
 
     /*
-    * @param List<ISpecialExpense> Une liste spécialisé contenant qu'un montant global d'un utilisateur et son id
+    * @param List<ISpecialExpense> specialExpenseList Une liste spécialisé contenant qu'un montant global d'un utilisateur, son id et 
     * @return Retourne la moyenne des montants contenu dans la liste donnée en paramètre
      */
     public static double getAverageExpense(List<ISpecialExpense> specialExpenseList) {
@@ -27,9 +27,9 @@ public class ExpenseManagement {
     }
 
     /*
-    * @param List<ISpecialExpense> Une liste spécialisé contenant qu'un montant global d'un utilisateur et son id
-    * @param Double La moyenne des dépenses d'un évènement
-    * @return Une liste composé des dû de chaque utilisateur dans la liste rentré en paramètre
+    * @param List<ISpecialExpense> specialExpenseList Une liste spécialisé contenant un montant global d'un utilisateur, son id, et l'évènement
+    * @param Double averageExpense La moyenne des dépenses d'un évènement
+    * @return Une liste composé des dûs de chaque utilisateur dans la liste rentré en paramètre
      */
     public static List<Owing> transformOwingList(List<ISpecialExpense> specialExpenseList, double averageExpense) {
         Owing owing = null;
@@ -44,12 +44,12 @@ public class ExpenseManagement {
     }
 
     /*
-    * @param List<Owing> La liste des dû de chaque utilisateur
+    * @param List<Owing> owingList La liste des dûs de chaque utilisateur
     * @return La quantité d'argent max qu'il reste à répartir enter chaque utilisateur
     */
-    public static double getMaxE(List<Owing> listOwing) {
+    public static double getMaxE(List<Owing> owingList) {
         double result = 0;
-        for (Owing owing : listOwing) {
+        for (Owing owing : owingList) {
             if (owing.getOwing() > 0) {
                 result += owing.getOwing();
             }
@@ -58,10 +58,10 @@ public class ExpenseManagement {
     }
 
     /*
-    * @param Owing Le dû d'un utilisateur
-    * @param List<Owing> La liste des dû de tous les utilisateurs d'un évènement
-    * @param double La quantité d'argent maximum à équilibrer entre tous les utilisateurs
-    * @return Une liste de dû transformé pour afficher ce qu'un utilisateur doit en somme d'argent à d'autre utilisateur
+    * @param Owing owingUser Le dû d'un utilisateur
+    * @param List<Owing> owingList La liste des dûs de tous les utilisateurs d'un évènement
+    * @param double maxE La quantité d'argent maximum à équilibrer entre tous les utilisateurs
+    * @return Une liste de dûs transformé pour afficher ce qu'un utilisateur doit en somme d'argent à d'autre utilisateur
     * Si les données sont négative
     */
     public static List<Owing> makeOwingList(Owing owingUser, List<Owing> owingList, double maxE) {
@@ -89,6 +89,11 @@ public class ExpenseManagement {
         return result;
     }
 
+    /*
+    * @param String idUser identifiant d'un utilisateur
+    * @param List<Owing> owingList Une liste de dûs
+    * @return Le dû d'un utilisateur dont l'identifiant est celui correspondant à la chaîne de caractère rentré en paramètre
+    */
     public static Owing getOwingUser(String idUser, List<Owing> owingList) {
         Owing result = null;
         for (Owing owing : owingList) {
@@ -100,6 +105,10 @@ public class ExpenseManagement {
         return result;
     }
 
+    /*
+    * @param Owing owingUser Un dû d'un utilisateur
+    * return Un boolean égale à vrai si l'utilisateur ne doit pas d'argent et faux si il en doit
+    */
     private static boolean getState(Owing owingUser) {
         boolean result = true;
         if (owingUser.getOwing() < 0) {
@@ -108,10 +117,21 @@ public class ExpenseManagement {
         return result;
     }
 
+    /*
+    * @param double owing Une quantité d'argent dépensé par un utilisateur
+    * @param double maxE Le total d'argent à équilibrer entre chaque utilisateur
+    * @param double owingUser Une quantité d'argent dépense par un second utilisateur
+    * @return Une quantité d'argent que doit l'utilisateur rentré en troisème paramètre à un autre utilisateur rentré en premier paramètre
+    */
     public static double sumOwing(double owing, double maxE, double owingUser) {
         return (1 / maxE * owing) * owingUser;
     }
 
+    /*
+    * @param User user Un utilisateur
+    * @param Event event Un evenement
+    * @return Une dépense de base à 0 lié à l'evenement et l'utilisateur rentré en paramètre
+    */
     public static Expense createExpenseByCreating(User user, Event event) {
         Expense expense = new Expense();
         expense.createId();

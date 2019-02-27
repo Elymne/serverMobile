@@ -8,4 +8,8 @@ import uit.nantes.serverMobile.api.entities.User;
  * @author Djurdjevic Sacha
  */
 public interface IUserRepository extends JpaRepository<User, String> {
+    
+    User findByPseudo();
+    
+    User findByEmail();
 }
