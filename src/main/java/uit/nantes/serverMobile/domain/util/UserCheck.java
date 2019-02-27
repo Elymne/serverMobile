@@ -26,8 +26,9 @@ public class UserCheck {
         if (userPojo.getPseudo().isEmpty()
                 || userPojo.getEmail().isEmpty()
                 || userPojo.getPassword().isEmpty()
-                || !isValid(userPojo.getPassword())
-                || !isEmail(userPojo.getEmail())) {
+                //|| !isValid(userPojo.getPassword())
+                //|| !isEmail(userPojo.getEmail())
+                ) {
             result = false;
         }
         return result;
