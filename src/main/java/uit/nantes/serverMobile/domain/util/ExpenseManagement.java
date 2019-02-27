@@ -2,7 +2,10 @@ package uit.nantes.serverMobile.domain.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import uit.nantes.serverMobile.api.entities.Event;
+import uit.nantes.serverMobile.api.entities.Expense;
 import uit.nantes.serverMobile.api.entities.Owing;
+import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.infra.jpa.pojo.ISpecialExpense;
 
 /**
@@ -96,6 +99,17 @@ public class ExpenseManagement {
     
     public static double sumOwing(double owing, double maxE, double owingUser){
         return (1/maxE * owing) * owingUser;
+    }
+    
+    public static Expense createExpenseByCreating(User user, Event event){
+        Expense expense = new Expense();
+        expense.createId();
+        expense.setAmount(0);
+        expense.setWording("none");
+        expense.setUser(user);
+        expense.setEvent(event);
+        return expense;
+            
     }
     
 

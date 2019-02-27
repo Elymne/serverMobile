@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uit.nantes.serverMobile.api.entities.Event;
+import uit.nantes.serverMobile.api.entities.Expense;
 import uit.nantes.serverMobile.api.entities.User;
 import uit.nantes.serverMobile.api.pojo.EventPojo;
 import uit.nantes.serverMobile.api.pojo.IdPojo;
 import uit.nantes.serverMobile.domain.util.EventCheck;
+import uit.nantes.serverMobile.domain.util.ExpenseManagement;
 import uit.nantes.serverMobile.infra.jpa.IEventRepository;
+import uit.nantes.serverMobile.infra.jpa.IExpenseRepository;
 import uit.nantes.serverMobile.infra.jpa.IUserRepository;
 
 /**
@@ -26,6 +29,9 @@ public class EventService {
 
     @Autowired
     IUserRepository userRepository;
+    
+    @Autowired
+    IExpenseRepository expenseRepository;
 
     public List<Event> findAll() {
         return eventRepository.findAll();
@@ -101,6 +107,7 @@ public class EventService {
                 event.setTitle(eventPojo.getTitle());
                 event.setDate(eventPojo.getDate());
                 event.setPlace(eventPojo.getPlace());
+                event.setDescription(eventPojo.getDescription());
                 event.setUser(userRepository.findById(eventPojo.getUserId()).get());
                 eventRepository.save(event);
                 result = true;
@@ -115,7 +122,11 @@ public class EventService {
                 && userRepository.existsById(idPojo.getIdObject())) {
             Event event = eventRepository.findById(id).get();
             event.getUserList().add(userRepository.findById(idPojo.getIdObject()).get());
+            Expense expense = ExpenseManagement.createExpenseByCreating(userRepository.findById(idPojo.getIdObject()).get(),
+                    event);
             eventRepository.save(event);
+            expenseRepository.save(expense);
+            
             result = true;
         }
         return result;
