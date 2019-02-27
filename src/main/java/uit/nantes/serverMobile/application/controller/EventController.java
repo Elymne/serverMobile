@@ -85,14 +85,14 @@ public class EventController {
     @PutMapping(path = "/addUser/{id}")
     @ResponseBody
     public String addUserToEvent(@PathVariable String id, @RequestBody IdPojo idPojo) throws JSONException, ParseException {
-        boolean result = eventService.addUser(id, idPojo);
+        boolean result = eventService.addUserToEvent(id, idPojo);
         return JsonResponse.addUserJsonResponse(result).toString();
     }
 
     @PutMapping(path = "/removeUser/{id}")
     @ResponseBody
     public String removeUserFromEvent(@PathVariable String id, @RequestBody IdPojo idPojo) throws JSONException, ParseException {
-        boolean result = eventService.removeUser(id, idPojo);
+        boolean result = eventService.removeUserFromEvent(id, idPojo);
         return JsonResponse.removeUserJsonResponse(result).toString();
     }
 

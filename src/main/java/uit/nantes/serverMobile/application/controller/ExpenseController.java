@@ -52,7 +52,7 @@ public class ExpenseController {
     @GetMapping(path = "/getAllGroupByUserFromEvent/{idEvent}")
     public @ResponseBody
     List<ISpecialExpense> getAllGroupByUser(@PathVariable String idEvent) {
-        return expenseService.findAllGroupByUserFromEvent(idEvent);
+        return expenseService.findAllGroupByUserByEvent(idEvent);
     }
 
     @GetMapping(path = "/get/{id}")
@@ -70,7 +70,7 @@ public class ExpenseController {
     @GetMapping(path = "/get/event/{id}")
     public @ResponseBody
     List<Expense> getAllExpenseByEvent(@PathVariable String id) throws JSONException {
-        return expenseService.findAllByEventId(id);
+        return expenseService.findAllByEvent(id);
     }
 
     @GetMapping(path = "/get/eventuser/{idUser}/{idEvent}")

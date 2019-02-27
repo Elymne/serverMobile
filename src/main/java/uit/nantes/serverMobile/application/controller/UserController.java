@@ -69,7 +69,7 @@ public class UserController {
     @DeleteMapping(path = "/delete/{id}")
     public @ResponseBody
     String deleteUser(@PathVariable String id) throws JSONException{
-        boolean result = userService.deleteById(id); 
+        boolean result = userService.delete(id); 
         return JsonResponse.deleteJsonResponse(result).toString();
     }
 

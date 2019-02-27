@@ -83,7 +83,7 @@ public class UserService {
         return result;
     }
 
-    public boolean deleteById(String id) {
+    public boolean delete(String id) {
         boolean result = false;
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);

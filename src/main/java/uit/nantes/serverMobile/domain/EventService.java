@@ -118,7 +118,7 @@ public class EventService {
         return result;
     }
 
-    public boolean addUser(String id, IdPojo idPojo) {
+    public boolean addUserToEvent(String id, IdPojo idPojo) {
         boolean result = false;
         if (eventRepository.existsById(id)
                 && userRepository.existsById(idPojo.getIdObject())) {
@@ -134,7 +134,7 @@ public class EventService {
         return result;
     }
 
-    public boolean removeUser(String id, IdPojo idPojo) {
+    public boolean removeUserFromEvent(String id, IdPojo idPojo) {
         boolean result = false;
         if (eventRepository.existsById(id)
                 && userRepository.existsById(idPojo.getIdObject())) {

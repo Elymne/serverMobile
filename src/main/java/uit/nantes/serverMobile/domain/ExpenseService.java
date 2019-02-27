@@ -40,7 +40,7 @@ public class ExpenseService {
         return expenseRepository.getAllMergeByUser();
     }
     
-    public List<ISpecialExpense> findAllGroupByUserFromEvent(String idEvent){
+    public List<ISpecialExpense> findAllGroupByUserByEvent(String idEvent){
         return expenseRepository.getAllMergeByUserFromEvent(idEvent);
     }
 
@@ -52,7 +52,7 @@ public class ExpenseService {
         return result;
     }
 
-    public List<Expense> findAllByEventId(String id) {
+    public List<Expense> findAllByEvent(String id) {
         List<Expense> result = new ArrayList<>();
         for (Expense expense : expenseRepository.findAll()) {
             if (expense.getEvent().getId().equals(id)
