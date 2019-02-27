@@ -18,7 +18,7 @@ import uit.nantes.serverMobile.infra.jpa.pojo.ISpecialExpense;
  * @author Djurdjevic Sacha
  */
 @Controller
-@RequestMapping("/api/expenseManager")
+@RequestMapping("/api/owing")
 public class OwingController {
 
     @Autowired
